@@ -3,7 +3,8 @@
 - [AOP](#aop)
 - [Spring 实现](#spring-%e5%ae%9e%e7%8e%b0)
   - [AOP Demo - bean](#aop-demo---bean)
-  - [pointcut expression(切入点表达式)](#pointcut-expression%e5%88%87%e5%85%a5%e7%82%b9%e8%a1%a8%e8%be%be%e5%bc%8f)
+  - [@Pointcut(切入点)](#pointcut%e5%88%87%e5%85%a5%e7%82%b9)
+    - [pointcut expression(切入点表达式)](#pointcut-expression%e5%88%87%e5%85%a5%e7%82%b9%e8%a1%a8%e8%be%be%e5%bc%8f)
 
 <!-- /TOC -->
 
@@ -118,7 +119,8 @@ Cat: hello
 >
 > spring针对这些情况提供了 ``pointcut expression(切入点表达式)``使用这个表达式就可以自由的选择切入点了
 
-## pointcut expression(切入点表达式)
+## @Pointcut(切入点)
+### pointcut expression(切入点表达式)
 
 
 
