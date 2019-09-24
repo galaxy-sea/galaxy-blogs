@@ -13,7 +13,9 @@ public class Main {
         Animal dogProxy = dogInvocationHandler.bind(dog);
         dogProxy.eat();
 
-        System.out.println("---------------------------");
+        System.out.println();
+        System.out.println();
+        System.out.println();
 
         Animal cat = new Cat();
         Animal catProxy = AnimalInvocationHandler.of(cat);
