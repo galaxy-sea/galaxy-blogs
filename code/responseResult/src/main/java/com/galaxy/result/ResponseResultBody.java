@@ -11,6 +11,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Documented
 public @interface ResponseResultBody {
+    
     String RESPONSE_RESULT_ANN = "RESPONSE-RESULT-ANN";
 
 }
