@@ -4,7 +4,7 @@ public enum ResultEnum {
 
     SUCCESS(200, "成功"),
     INVALID(400, "参数无效"),
-    ERROR(500, "错误"),
+    ERROR(500, "服务端错误"),
     ;
 
     Integer code;

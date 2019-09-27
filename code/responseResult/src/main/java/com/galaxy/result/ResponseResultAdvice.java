@@ -5,14 +5,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
@@ -25,12 +25,13 @@ public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-
-        if (body instanceof ErrorResult) {
-            ErrorResult errorResult = (ErrorResult) body;
-            //            return
+        if (body instanceof ResultException) {
+            ResultException resultException = (ResultException) body;
+            return Result.failure(resultException.resultEnum);
         }
-
+        if (body instanceof Exception) {
+            return Result.failure();
+        }
         return Result.success(body);
     }
 }
