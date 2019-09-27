@@ -25,13 +25,10 @@ public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        if (body instanceof ResultException) {
-            ResultException resultException = (ResultException) body;
-            return Result.failure(resultException.resultEnum);
+        if (body instanceof Result){
+            return body;
         }
-        if (body instanceof Exception) {
-            return Result.failure();
-        }
+
         return Result.success(body);
     }
 }
