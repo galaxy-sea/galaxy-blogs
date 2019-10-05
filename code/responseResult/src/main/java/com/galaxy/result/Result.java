@@ -1,5 +1,6 @@
 package com.galaxy.result;
 
+
 public class Result<T> {
 
     private Integer code;
@@ -30,10 +31,13 @@ public class Result<T> {
     }
 
     public static <T> Result<T> failure() {
-        return new Result<T>(ResultEnum.ERROR);
+        return new Result<T>(ResultEnum.INTERNAL_SERVER_ERROR);
     }
 
     public static <T> Result<T> failure(ResultEnum resultEnum) {
+        if (resultEnum == null) {
+            return new Result<T>(ResultEnum.INTERNAL_SERVER_ERROR);
+        }
         return new Result<T>(resultEnum);
     }
 

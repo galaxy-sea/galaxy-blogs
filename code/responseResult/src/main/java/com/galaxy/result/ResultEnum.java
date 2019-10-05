@@ -1,16 +1,20 @@
 package com.galaxy.result;
 
+import org.springframework.http.HttpStatus;
+
 public enum ResultEnum {
 
-    SUCCESS(200, "成功"),
-    INVALID(400, "参数无效"),
-    ERROR(500, "服务端错误"),
+    SUCCESS(HttpStatus.OK, 200, "OK"),
+    BAD_REQUEST(HttpStatus.BAD_REQUEST, 400, "Bad Request"),
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 500, "Internal Server Error"),
     ;
 
-    Integer code;
-    String message;
+    public HttpStatus httpStatus;
+    public Integer code;
+    public String message;
 
-    ResultEnum(Integer code, String message) {
+    ResultEnum(HttpStatus httpStatus, Integer code, String message) {
+        this.httpStatus = httpStatus;
         this.code = code;
         this.message = message;
     }
