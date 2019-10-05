@@ -3,6 +3,10 @@ package com.galaxy.result.exception;
 import com.galaxy.result.ResultEnum;
 import org.springframework.http.HttpStatus;
 
+/**
+ * @author galaxy
+ * @date 2019/10/05 16:19
+ */
 
 public class ResultException extends Exception {
 

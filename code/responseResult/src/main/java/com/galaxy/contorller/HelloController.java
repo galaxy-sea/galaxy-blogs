@@ -1,6 +1,5 @@
 package com.galaxy.contorller;
 
-import com.galaxy.bean.HelloBean;
 import com.galaxy.result.ResponseResultBody;
 import com.galaxy.result.Result;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,27 +7,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author galaxy
+ * @date 2019/10/05 16:19
+ */
+
 @RestController
 @RequestMapping("/hello")
 public class HelloController {
 
+    private static final HashMap<String, Object> INFO;
+
+    static {
+        INFO = new HashMap<>();
+        INFO.put("name", "galaxy");
+        INFO.put("age", "70");
+    }
+
+
     @GetMapping()
-    public HelloBean hello() {
-        HelloBean helloBean = new HelloBean("tu", 1);
-        return helloBean;
+    public Map<String, Object> hello() {
+        return INFO;
     }
 
     @GetMapping("/result")
     @ResponseBody
-    public Result<HelloBean> helloResult() {
-        HelloBean helloBean = new HelloBean("result", 1);
-        return Result.success(helloBean);
+    public Result<Map<String, Object>> helloResult() {
+        return Result.success(INFO);
     }
 
     @GetMapping("/resultBody")
     @ResponseResultBody
-    public HelloBean helloResultBody() {
-        HelloBean helloBean = new HelloBean("resultBody", 1);
-        return helloBean;
+    public Map<String, Object> helloResultBody() {
+        return INFO;
     }
 }

@@ -18,6 +18,11 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import org.springframework.web.util.WebUtils;
 
+/**
+ * @author galaxy
+ * @date 2019/10/05 16:19
+ */
+
 @RestControllerAdvice
 public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
 

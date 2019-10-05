@@ -2,6 +2,11 @@ package com.galaxy.result;
 
 import org.springframework.http.HttpStatus;
 
+/**
+ * @author galaxy
+ * @date 2019/10/05 16:19
+ */
+
 public enum ResultEnum {
 
     SUCCESS(HttpStatus.OK, 200, "OK"),

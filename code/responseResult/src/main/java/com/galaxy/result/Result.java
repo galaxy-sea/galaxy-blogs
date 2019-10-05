@@ -1,5 +1,9 @@
 package com.galaxy.result;
 
+/**
+ * @author galaxy
+ * @date 2019/10/05 16:19
+ */
 
 public class Result<T> {
 
