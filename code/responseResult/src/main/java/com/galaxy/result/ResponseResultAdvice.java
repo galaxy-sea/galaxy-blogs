@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -19,6 +18,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import org.springframework.web.util.WebUtils;
 
 /**
+ * 当类和方法使用了@ResponseResultBody,  放接口的返回进行统一处理
+ * <p>
+ * 对异常请求进行统一的处理
+ *
  * @author galaxy
  * @date 2019/10/05 16:19
  */
@@ -26,11 +29,17 @@ import org.springframework.web.util.WebUtils;
 @RestControllerAdvice
 public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
 
+    /**
+     * 判断类或者方法是否使用了 @ResponseResultBody
+     */
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         return AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ResponseBody.class) || returnType.hasMethodAnnotation(ResponseBody.class);
     }
 
+    /**
+     * 当类或者方法使用了 @ResponseResultBody 就会调用这个方法
+     */
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if (body instanceof Result) {
@@ -40,6 +49,12 @@ public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
     }
 
 
+    /**
+     * 提供对标准Spring MVC异常的处理
+     *
+     * @param ex      the target exception
+     * @param request the current request
+     */
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Result<?>> exceptionHandler(Exception ex, WebRequest request) {
         HttpHeaders headers = new HttpHeaders();
@@ -50,13 +65,18 @@ public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
         return this.handleException(ex, headers, request);
     }
 
-
+    /**
+     * 对ResultException类返回返回结果的处理
+     */
     protected ResponseEntity<Result<?>> handleResultException(ResultException ex, HttpHeaders headers, WebRequest request) {
         Result<?> body = Result.failure(ex.getResultStatus());
         HttpStatus status = ex.getHttpStatus();
         return this.handleExceptionInternal(ex, body, headers, status, request);
     }
 
+    /**
+     * 异常类的统一处理
+     */
     protected ResponseEntity<Result<?>> handleException(Exception ex, HttpHeaders headers, WebRequest request) {
         Result<?> body = Result.failure();
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -70,15 +90,9 @@ public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
      * <p>The default implementation sets the {@link WebUtils#ERROR_EXCEPTION_ATTRIBUTE}
      * request attribute and creates a {@link ResponseEntity} from the given
      * body, headers, and status.
-     *
-     * @param ex      the exception
-     * @param body    the body for the response
-     * @param headers the headers for the response
-     * @param status  the response status
-     * @param request the current request
      */
     protected ResponseEntity<Result<?>> handleExceptionInternal(
-            Exception ex, @Nullable Result<?> body, HttpHeaders headers, HttpStatus status, WebRequest request) {
+            Exception ex, Result<?> body, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
         if (HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
             request.setAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE, ex, WebRequest.SCOPE_REQUEST);

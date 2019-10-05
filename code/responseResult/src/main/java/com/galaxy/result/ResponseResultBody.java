@@ -7,6 +7,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ *
+ * 使用这个注解就可以返回统一的json格式,  用于类和方法上
+ *
  * @author galaxy
  * @date 2019/10/05 16:19
  */
