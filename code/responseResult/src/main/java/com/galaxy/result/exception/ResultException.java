@@ -1,7 +1,6 @@
 package com.galaxy.result.exception;
 
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 /**
  * 业务异常类
@@ -17,11 +16,6 @@ public class ResultException extends Exception {
      * 业务信息
      */
     ResultStatus resultStatus;
-
-    /**
-     * http协议, http的状态信息
-     */
-    HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
     public ResultException() {
         this(ResultStatus.INTERNAL_SERVER_ERROR);

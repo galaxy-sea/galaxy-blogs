@@ -11,11 +11,12 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import org.springframework.web.util.WebUtils;
+
+import java.lang.annotation.Annotation;
 
 /**
  * 当类和方法使用了@ResponseResultBody,  放接口的返回进行统一处理
@@ -29,12 +30,14 @@ import org.springframework.web.util.WebUtils;
 @RestControllerAdvice
 public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
 
+    private static final Class<? extends Annotation> ANNOTATION_TYPE = ResponseResultBody.class;
+
     /**
      * 判断类或者方法是否使用了 @ResponseResultBody
      */
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ResponseBody.class) || returnType.hasMethodAnnotation(ResponseBody.class);
+        return AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ANNOTATION_TYPE) || returnType.hasMethodAnnotation(ANNOTATION_TYPE);
     }
 
     /**
@@ -70,7 +73,7 @@ public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
      */
     protected ResponseEntity<Result<?>> handleResultException(ResultException ex, HttpHeaders headers, WebRequest request) {
         Result<?> body = Result.failure(ex.getResultStatus());
-        HttpStatus status = ex.getHttpStatus();
+        HttpStatus status = ex.getResultStatus().httpStatus;
         return this.handleExceptionInternal(ex, body, headers, status, request);
     }
 

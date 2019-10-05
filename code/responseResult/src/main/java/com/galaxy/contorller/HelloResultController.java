@@ -1,12 +1,14 @@
 package com.galaxy.contorller;
 
 import com.galaxy.result.ResponseResultBody;
+import com.galaxy.result.Result;
 import com.galaxy.result.exception.ResultException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author galaxy
@@ -29,6 +31,11 @@ public class HelloResultController {
     @GetMapping("hello")
     public HashMap<String, Object> hello() {
         return INFO;
+    }
+
+    @GetMapping("result")
+    public Result<Map<String, Object>> helloResult() {
+        return Result.success(INFO);
     }
 
     @GetMapping("helloError")
