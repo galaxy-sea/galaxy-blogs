@@ -1,6 +1,5 @@
 package com.galaxy.result.exception;
 
-import com.galaxy.result.ResultEnum;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -10,25 +9,25 @@ import org.springframework.http.HttpStatus;
 
 public class ResultException extends Exception {
 
-    ResultEnum resultEnum;
+    ResultStatus resultStatus;
 
     HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
     public ResultException() {
-        this(ResultEnum.INTERNAL_SERVER_ERROR);
+        this(ResultStatus.INTERNAL_SERVER_ERROR);
     }
 
-    public ResultException(ResultEnum resultEnum) {
-        super(resultEnum.message);
-        this.resultEnum = resultEnum;
+    public ResultException(ResultStatus resultStatus) {
+        super(resultStatus.message);
+        this.resultStatus = resultStatus;
     }
 
-    public ResultEnum getResultEnum() {
-        return resultEnum;
+    public ResultStatus getResultStatus() {
+        return resultStatus;
     }
 
-    public void setResultEnum(ResultEnum resultEnum) {
-        this.resultEnum = resultEnum;
+    public void setResultStatus(ResultStatus resultStatus) {
+        this.resultStatus = resultStatus;
     }
 
     public HttpStatus getHttpStatus() {

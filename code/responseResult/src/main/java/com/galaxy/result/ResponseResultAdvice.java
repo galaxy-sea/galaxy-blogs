@@ -52,7 +52,7 @@ public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
 
 
     protected ResponseEntity<Result<?>> handleResultException(ResultException ex, HttpHeaders headers, WebRequest request) {
-        Result<?> body = Result.failure(ex.getResultEnum());
+        Result<?> body = Result.failure(ex.getResultStatus());
         HttpStatus status = ex.getHttpStatus();
         return this.handleExceptionInternal(ex, body, headers, status, request);
     }

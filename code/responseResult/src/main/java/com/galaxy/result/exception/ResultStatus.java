@@ -1,4 +1,4 @@
-package com.galaxy.result;
+package com.galaxy.result.exception;
 
 import org.springframework.http.HttpStatus;
 
@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
  * @date 2019/10/05 16:19
  */
 
-public enum ResultEnum {
+public enum ResultStatus {
 
     SUCCESS(HttpStatus.OK, 200, "OK"),
     BAD_REQUEST(HttpStatus.BAD_REQUEST, 400, "Bad Request"),
@@ -18,7 +18,7 @@ public enum ResultEnum {
     public Integer code;
     public String message;
 
-    ResultEnum(HttpStatus httpStatus, Integer code, String message) {
+    ResultStatus(HttpStatus httpStatus, Integer code, String message) {
         this.httpStatus = httpStatus;
         this.code = code;
         this.message = message;
