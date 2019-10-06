@@ -13,7 +13,7 @@ import lombok.Getter;
 public class ResultException extends Exception {
 
     /**
-     * 业务信息
+     * 业务异常信息信息
      */
     ResultStatus resultStatus;
 
@@ -22,7 +22,7 @@ public class ResultException extends Exception {
     }
 
     public ResultException(ResultStatus resultStatus) {
-        super(resultStatus.message);
+        super(resultStatus.getMessage());
         this.resultStatus = resultStatus;
     }
 }

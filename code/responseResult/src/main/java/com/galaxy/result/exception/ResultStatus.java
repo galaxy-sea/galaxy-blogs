@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
  * @date 2019/10/05 16:19
  */
 @ToString
+@Getter
 public enum ResultStatus {
 
     SUCCESS(HttpStatus.OK, 200, "OK"),
@@ -18,18 +19,12 @@ public enum ResultStatus {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 500, "Internal Server Error"),
     ;
 
-    /**
-     * 返回的HTTP状态码,  符合http请求
-     */
-    public HttpStatus httpStatus;
-    /**
-     * 业务异常码
-     */
-    public Integer code;
-    /**
-     * 业务异常信息描述
-     */
-    public String message;
+    /** 返回的HTTP状态码,  符合http请求 */
+    private HttpStatus httpStatus;
+    /** 业务异常码 */
+    private Integer code;
+    /** 业务异常信息描述 */
+    private String message;
 
     ResultStatus(HttpStatus httpStatus, Integer code, String message) {
         this.httpStatus = httpStatus;

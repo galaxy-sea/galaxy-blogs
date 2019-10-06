@@ -27,8 +27,7 @@ public class HelloController {
         INFO.put("age", "70");
     }
 
-
-    @GetMapping()
+    @GetMapping("/hello")
     public Map<String, Object> hello() {
         return INFO;
     }
