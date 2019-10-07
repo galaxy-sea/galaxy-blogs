@@ -1,12 +1,14 @@
 <!-- TOC -->
 
-- [内置约束](#%e5%86%85%e7%bd%ae%e7%ba%a6%e6%9d%9f)
-  - [bean的验证约束](#bean%e7%9a%84%e9%aa%8c%e8%af%81%e7%ba%a6%e6%9d%9f)
+- [约束注解](#约束注解)
+    - [bean的验证约束](#bean的验证约束)
+    - [注解支持的类型](#注解支持的类型)
+- [注解的使用](#注解的使用)
 
 <!-- /TOC -->
 
 
-# 内置约束
+# 约束注解
 ## bean的验证约束
 
 | 注解                            | 作用                                                  |
@@ -34,7 +36,7 @@
 | @Past                           | 为当前时间之前                                        |
 | @PastOrPresent                  | 当前时间或当前时间之前                                |
 
-> 注解支持的类型
+## 注解支持的类型
 
 | 注解                                                                                               | 支持类型                                                                                                                                                                                                                                                                                                                                                                                                             | HV额外支持                                                                         |
 | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
@@ -46,4 +48,4 @@
 | @DecimalMax(value=, inclusive=)<br>@DecimalMin(value=, inclusive=)<br>@Digits(integer=, fraction=) | BigDecimal<br>BigInteger<br>CharSequence<br>byte<br>short<br>int<br>long<br>相应的包装类;                                                                                                                                                                                                                                                                                                                            | Number子类和javax.money.MonetaryAmount<br>@Digits不支持javax.money.MonetaryAmount  |
 | @Future<br>@FutureOrPresent<br>@Past<br>@PastOrPresent                                             | java.util.Date<br>java.util.Calendar<br>java.time.Instant<br>java.time.LocalDate<br>java.time.LocalDateTime<br>java.time.LocalTime<br>java.time.MonthDay<br>java.time.OffsetDateTime<br>java.time.OffsetTime<br>java.time.Year<br>java.time.YearMonth<br>java.time.ZonedDateTime<br>java.time.chrono.HijrahDate<br>java.time.chrono.JapaneseDate<br>java.time.chrono.MinguoDate<br>java.time.chrono.ThaiBuddhistDate | 如果有Joda Time date/time API,则由HV附加支持：ReadablePartial子类和ReadableInstant |
 
-
+# 注解的使用
