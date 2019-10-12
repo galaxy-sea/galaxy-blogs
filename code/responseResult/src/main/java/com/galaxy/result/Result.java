@@ -7,6 +7,7 @@ import lombok.ToString;
 
 /**
  * 后端返回给前端的json格式
+ *  todo 返回格式参考 org.springframework.boot.web.servlet.error.DefaultErrorAttributes
  *
  * @author galaxy
  * @date 2019/10/05 16:19
