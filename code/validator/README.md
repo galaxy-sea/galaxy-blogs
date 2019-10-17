@@ -49,3 +49,5 @@
 | @Future<br>@FutureOrPresent<br>@Past<br>@PastOrPresent                                             | java.util.Date<br>java.util.Calendar<br>java.time.Instant<br>java.time.LocalDate<br>java.time.LocalDateTime<br>java.time.LocalTime<br>java.time.MonthDay<br>java.time.OffsetDateTime<br>java.time.OffsetTime<br>java.time.Year<br>java.time.YearMonth<br>java.time.ZonedDateTime<br>java.time.chrono.HijrahDate<br>java.time.chrono.JapaneseDate<br>java.time.chrono.MinguoDate<br>java.time.chrono.ThaiBuddhistDate | 如果有Joda Time date/time API,则由HV附加支持：ReadablePartial子类和ReadableInstant |
 
 # 注解的使用
+
+

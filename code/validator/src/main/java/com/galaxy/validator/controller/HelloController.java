@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.ConstraintViolation;
@@ -37,22 +38,22 @@ public class HelloController {
 
     /** Validated Spring封装 Bean Validation 支持校验分组 */
     @PostMapping("validated")
+    @ResponseBody
     public FOO helloValidated(@Validated @RequestBody FOO foo) {
-
         return foo;
     }
 
     /**
      * validator 可以手动校验, 分别有两个接口类
      * javax.validation.Validator和org.springframework.validation.Validator
-     * 因为使用spring的校验器, 我们这里就是用org.springframework.validation.Validator的实现类
+     * 这里的实现类是org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
      */
     @PostMapping("validator")
     public FOO helloValidator(@RequestBody FOO foo) {
         Set<ConstraintViolation<FOO>> constraintViolationSet = validator.validate(foo);
         for (ConstraintViolation<FOO> fooConstraintViolation : constraintViolationSet) {
             fooConstraintViolation.getMessage();
-            // todo galaxy 抛出业务错误信息
+            // todo galaxy 针对单个参数的异常抛出
         }
         return foo;
     }
