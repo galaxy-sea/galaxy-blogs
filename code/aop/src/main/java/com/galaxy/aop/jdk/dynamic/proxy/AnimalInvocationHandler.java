@@ -30,11 +30,11 @@ public class AnimalInvocationHandler<T> implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Object result = null;
         //方法执行前加一段逻辑
-        System.out.println("——————调用前处理——————");
+        System.out.println("——————aop调用前处理——————");
         //调用真正的业务方法
         result = method.invoke(target, args);
         //方法执行前加一段逻辑
-        System.out.println("——————调用后处理——————");
+        System.out.println("——————aop调用后处理——————");
         return result;
     }
 }

@@ -10,10 +10,10 @@ public class PandaMethodInterceptor implements MethodInterceptor, Callback {
 
     @Override
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-        System.out.println("——————调用前处理——————");
+        System.out.println("——————aop 调用前处理——————");
         //对被代理对象方法的调用
         Object object = methodProxy.invokeSuper(o, objects);
-        System.out.println("——————调用后处理——————");
+        System.out.println("——————aop 调用后处理——————");
         return object;
     }
 }
