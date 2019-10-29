@@ -97,9 +97,8 @@ public class ClassTest {
         Constructor<?>[] constructors = Panda.class.getConstructors();
 
         /** 因为构造方式是重载的，只能通过参数类型来区分 */
-        Panda.class.getConstructor()
-
-
+        // Panda.class.getConstructor()
+        //
     }
 
 

@@ -1,6 +1,6 @@
 package com.galaxy.reflect.bean;
 
-public class Panda extends Father implements Runing {
+public class Panda extends Father implements Runing, Cloneable {
     public class Nose {
     }
 
@@ -26,11 +26,15 @@ public class Panda extends Father implements Runing {
     }
 
     public Panda(Object name, Object age) {
-        this.name = name;
-        this.age = age;
+        this.name = (String) name;
+        this.age = (Integer) age;
     }
 
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
     @Override
     public void run() {
