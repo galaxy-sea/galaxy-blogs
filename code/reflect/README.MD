@@ -6,6 +6,9 @@
 - [2.1. 反射的简单操作](#21-%e5%8f%8d%e5%b0%84%e7%9a%84%e7%ae%80%e5%8d%95%e6%93%8d%e4%bd%9c)
   - [获取class有三种方法](#%e8%8e%b7%e5%8f%96class%e6%9c%89%e4%b8%89%e7%a7%8d%e6%96%b9%e6%b3%95)
   - [实例化对象](#%e5%ae%9e%e4%be%8b%e5%8c%96%e5%af%b9%e8%b1%a1)
+    - [new object();](#new-object)
+    - [newInstance();](#newinstance)
+    - [](#)
 - [2. Class(类)反射](#2-class%e7%b1%bb%e5%8f%8d%e5%b0%84)
   - [2.1. class相关方法](#21-class%e7%9b%b8%e5%85%b3%e6%96%b9%e6%b3%95)
     - [2.1.1. 获取class相关的方法](#211-%e8%8e%b7%e5%8f%96class%e7%9b%b8%e5%85%b3%e7%9a%84%e6%96%b9%e6%b3%95)
@@ -132,6 +135,9 @@ public class Panda extends Father implements Runing {
 注意：在开发中一般使用第三种方法，因为第三种接收的是一个字符串路径，将来可以通过配置文件获取，通用性好, 字母大小写敏感
 让我们看看class类中有什么操作
 ## 实例化对象
+### new object();
+### newInstance();
+### 
 
 
 # 2. Class(类)反射
