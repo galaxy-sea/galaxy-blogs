@@ -1,5 +1,7 @@
-package com.galaxy.configurer;
+package com.galaxy.config.mvc;
 
+import com.galaxy.config.mvc.resolvers.HttpBeanArgumentResolver;
+import com.galaxy.config.mvc.resolvers.HttpBodyArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -11,14 +13,17 @@ import java.util.List;
  * @author galaxy
  */
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
-    UserArgumentResolver userArgumentResolver;
+    HttpBeanArgumentResolver httpBeanArgumentResolver;
+    @Autowired
+    HttpBodyArgumentResolver httpBodyArgumentResolver;
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(userArgumentResolver);
+        argumentResolvers.add(httpBeanArgumentResolver);
+        argumentResolvers.add(httpBodyArgumentResolver);
     }
 
 

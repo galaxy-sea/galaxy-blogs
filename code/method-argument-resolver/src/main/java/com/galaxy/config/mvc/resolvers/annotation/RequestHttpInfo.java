@@ -1,4 +1,4 @@
-package com.galaxy.annotation;
+package com.galaxy.config.mvc.resolvers.annotation;
 
 
 import java.lang.annotation.Documented;
@@ -13,5 +13,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface RequestHttpBean {
+public @interface RequestHttpInfo {
 }

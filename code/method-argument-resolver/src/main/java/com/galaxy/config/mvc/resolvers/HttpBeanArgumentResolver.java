@@ -1,9 +1,9 @@
-package com.galaxy.configurer;
+package com.galaxy.config.mvc.resolvers;
 
-import com.galaxy.annotation.RequestHttpBean;
 import com.galaxy.bean.HttpBean;
+import com.galaxy.config.mvc.resolvers.annotation.RequestHttpInfo;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -12,22 +12,21 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * @author galaxy
  */
-@Service
-public class UserArgumentResolver implements HandlerMethodArgumentResolver {
+@Configuration
+public class HttpBeanArgumentResolver implements HandlerMethodArgumentResolver {
 
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterType() == HttpBean.class && parameter.hasParameterAnnotation(RequestHttpBean.class);
+        return parameter.getParameterType() == HttpBean.class
+                && parameter.hasParameterAnnotation(RequestHttpInfo.class);
     }
 
 
@@ -41,14 +40,12 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
         Map<String, String> headerMap = new HashMap<String, String>();
         Enumeration<String> headerNames = request.getHeaderNames();
-        while (headerNames.hasMoreElements()){
+        while (headerNames.hasMoreElements()) {
             String name = headerNames.nextElement();
             String header = request.getHeader(name);
             headerMap.put(name, header);
         }
 
-
-
-        return new HttpBean(pathInfo, cookies,headerMap);
+        return new HttpBean(pathInfo, cookies, headerMap);
     }
 }
