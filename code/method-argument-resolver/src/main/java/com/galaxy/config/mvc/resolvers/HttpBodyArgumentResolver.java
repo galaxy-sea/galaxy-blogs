@@ -2,8 +2,8 @@ package com.galaxy.config.mvc.resolvers;
 
 import com.galaxy.config.mvc.resolvers.annotation.RequestHttpBody;
 import org.apache.commons.io.IOUtils;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -13,7 +13,7 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Configuration
+@Component
 public class HttpBodyArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override

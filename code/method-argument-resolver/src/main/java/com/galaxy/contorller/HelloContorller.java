@@ -42,6 +42,7 @@ public class HelloContorller {
 
     /**
      * I/O error while reading input message; nested exception is java.io.IOException: Stream closed 问题
+     * ServletInputStream 只能读取一次, 读取两次就会报异常
      *
      * @param body
      * @param requestBody

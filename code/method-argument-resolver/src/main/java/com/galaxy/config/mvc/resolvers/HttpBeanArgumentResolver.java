@@ -2,8 +2,8 @@ package com.galaxy.config.mvc.resolvers;
 
 import com.galaxy.bean.HttpBean;
 import com.galaxy.config.mvc.resolvers.annotation.RequestHttpInfo;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * @author galaxy
  */
-@Configuration
+@Component
 public class HttpBeanArgumentResolver implements HandlerMethodArgumentResolver {
 
 
