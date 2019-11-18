@@ -30,7 +30,7 @@ class JacksonApplicationTests {
         data.add("2");
         data.add("3");
         data.add("4");
-        panda.setData(data);
+        panda.setNameTest(data);
 
         String json = objectMapper.writeValueAsString(panda);
         System.out.println(json);
@@ -38,8 +38,7 @@ class JacksonApplicationTests {
 
     @Test
     public void JsonDeserializer() throws JsonProcessingException {
-        Panda panda = objectMapper.readValue("{\"phone\":\"................132123\",\"name\":null,\"age\":17}", Panda.class);
+        Panda panda = objectMapper.readValue("{\"phone\":\"abcd132123\",\"name\":null,\"age\":17,\"nameTest\":[\"abcd1\",\"abcd2\",\"abcd3\",\"abcd4\"]}", Panda.class);
         System.out.println(panda);
     }
-
 }

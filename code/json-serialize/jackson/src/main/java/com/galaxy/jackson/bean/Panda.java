@@ -1,9 +1,13 @@
 package com.galaxy.jackson.bean;
 
 import com.galaxy.jackson.json.filter.ValuePrefix;
+import com.galaxy.jackson.json.filter.ValuePrefixCollection;
 
 import java.util.List;
 
+/**
+ * @author galaxy
+ */
 public class Panda {
 
     public static final String PREFIX = "abcd";
@@ -14,8 +18,8 @@ public class Panda {
     private String name;
     private Integer age;
 
-    @ValuePrefix
-    private List<String> data;
+    @ValuePrefixCollection
+    private List<String> nameTest;
 
     public Panda() {
     }
@@ -24,6 +28,13 @@ public class Panda {
         this.phone = phone;
         this.name = name;
         this.age = age;
+    }
+
+    public Panda(String phone, String name, Integer age, List<String> nameTest) {
+        this.phone = phone;
+        this.name = name;
+        this.age = age;
+        this.nameTest = nameTest;
     }
 
     public String getPhone() {
@@ -50,12 +61,12 @@ public class Panda {
         this.age = age;
     }
 
-    public List<String> getData() {
-        return data;
+    public List<String> getNameTest() {
+        return nameTest;
     }
 
-    public void setData(List<String> data) {
-        this.data = data;
+    public void setNameTest(List<String> nameTest) {
+        this.nameTest = nameTest;
     }
 
     @Override
@@ -64,7 +75,7 @@ public class Panda {
                 "phone='" + phone + '\'' +
                 ", name='" + name + '\'' +
                 ", age=" + age +
-                ", data=" + data +
+                ", data=" + nameTest +
                 '}';
     }
 }

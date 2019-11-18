@@ -1,5 +1,6 @@
 package com.galaxy.jackson.json.filter;
 
+
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -12,11 +13,10 @@ import java.lang.annotation.Target;
 /**
  * @author galaxy
  */
-
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
 @JacksonAnnotationsInside
-@JsonSerialize(using = ValuePrefixJsonSerializer.class)
-@JsonDeserialize(using = ValuePrefixJsonDeserializer.class)
-public @interface ValuePrefix {
+@JsonSerialize(using = ValuePrefixCollectionJsonSerializer.class)
+@JsonDeserialize(using = ValuePrefixCollectionJsonDeserializer.class)
+public @interface ValuePrefixCollection {
 }
