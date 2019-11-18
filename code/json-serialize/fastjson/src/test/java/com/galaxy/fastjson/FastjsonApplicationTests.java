@@ -1,10 +1,10 @@
-package com.galaxy.json.serialize;
+package com.galaxy.fastjson;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JsonSerializeApplicationTests {
+class FastjsonApplicationTests {
 
     @Test
     void contextLoads() {
