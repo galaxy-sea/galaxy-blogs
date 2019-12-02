@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Panda {
 
-    public static final String PREFIX = "abcd";
+    public static final String PREFIX = "前缀";
 
     @ValuePrefix
     private String phone;
