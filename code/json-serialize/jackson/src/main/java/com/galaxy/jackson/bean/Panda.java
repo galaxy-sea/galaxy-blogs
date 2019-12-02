@@ -19,7 +19,7 @@ public class Panda {
     private Integer age;
 
     @ValuePrefixCollection
-    private List<String> nameTest;
+    private List<String> nameList;
 
     public Panda() {
     }
@@ -30,11 +30,11 @@ public class Panda {
         this.age = age;
     }
 
-    public Panda(String phone, String name, Integer age, List<String> nameTest) {
+    public Panda(String phone, String name, Integer age, List<String> nameList) {
         this.phone = phone;
         this.name = name;
         this.age = age;
-        this.nameTest = nameTest;
+        this.nameList = nameList;
     }
 
     public String getPhone() {
@@ -61,12 +61,12 @@ public class Panda {
         this.age = age;
     }
 
-    public List<String> getNameTest() {
-        return nameTest;
+    public List<String> getNameList() {
+        return nameList;
     }
 
-    public void setNameTest(List<String> nameTest) {
-        this.nameTest = nameTest;
+    public void setNameList(List<String> nameList) {
+        this.nameList = nameList;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class Panda {
                 "phone='" + phone + '\'' +
                 ", name='" + name + '\'' +
                 ", age=" + age +
-                ", data=" + nameTest +
+                ", nameList=" + nameList +
                 '}';
     }
 }

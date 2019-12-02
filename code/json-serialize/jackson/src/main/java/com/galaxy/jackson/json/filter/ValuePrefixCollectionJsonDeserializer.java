@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.annotation.JacksonStdImpl;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import com.fasterxml.jackson.databind.deser.NullValueProvider;
 import com.fasterxml.jackson.databind.deser.ValueInstantiator;
@@ -23,7 +24,7 @@ import java.util.Collection;
 /**
  * @author galaxy
  */
-
+@JacksonStdImpl
 public class ValuePrefixCollectionJsonDeserializer extends ContainerDeserializerBase<Collection<String>> implements ContextualDeserializer {
     private static final long serialVersionUID = 1L;
 
