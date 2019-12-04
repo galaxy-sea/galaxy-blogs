@@ -19,4 +19,6 @@ import java.lang.annotation.Target;
 @JsonSerialize(using = ValuePrefixCollectionJsonSerializer.class)
 @JsonDeserialize(using = ValuePrefixCollectionJsonDeserializer.class)
 public @interface ValuePrefixCollection {
+
+    String Prefix() default "";
 }

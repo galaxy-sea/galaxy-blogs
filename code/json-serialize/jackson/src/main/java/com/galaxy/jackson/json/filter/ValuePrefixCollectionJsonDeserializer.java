@@ -3,10 +3,13 @@ package com.galaxy.jackson.json.filter;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JacksonStdImpl;
+import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import com.galaxy.jackson.bean.Panda;
 
 import java.io.IOException;
@@ -21,7 +24,15 @@ import java.util.Iterator;
  * @author galaxy
  */
 @JacksonStdImpl
-public class ValuePrefixCollectionJsonDeserializer extends JsonDeserializer<Collection<String>> {
+public class ValuePrefixCollectionJsonDeserializer extends JsonDeserializer<Collection<String>> implements ContextualDeserializer {
+
+    private String prefix = "";
+
+    @Override
+    public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
+        prefix = property.getAnnotation(ValuePrefixCollection.class).Prefix();
+        return this;
+    }
 
 
     @Override
@@ -35,7 +46,7 @@ public class ValuePrefixCollectionJsonDeserializer extends JsonDeserializer<Coll
             if (node.isNull()) {
                 collection.add(null);
             } else {
-                String text = node.asText().replace(Panda.PREFIX, "");
+                String text = node.asText().replace(prefix, "");
                 collection.add(text);
             }
         }

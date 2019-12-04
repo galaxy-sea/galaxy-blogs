@@ -44,7 +44,7 @@ class JacksonApplicationTests {
 
     @Test
     public void JsonDeserializer() throws JsonProcessingException {
-        Panda panda = objectMapper.readValue("{\"phone\":null,\"name\":\"name名称\",\"age\":17,\"nameList\":[\"前缀1\",\"前缀2\",\"前缀3\",\"前缀4\"]}", Panda.class);
+        Panda panda = objectMapper.readValue("{\"phone\":null,\"name\":\"name名称\",\"age\":17,\"nameList\":[\"nameList1111\",\"nameList2222\",\"nameList3333\",\"nameList44444\"]}", Panda.class);
         System.out.println(panda);
     }
 }

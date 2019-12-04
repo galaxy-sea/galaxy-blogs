@@ -10,15 +10,13 @@ import java.util.List;
  */
 public class Panda {
 
-    public static final String PREFIX = "前缀";
-
     @ValuePrefix(Prefix = "phone")
     private String phone;
     @ValuePrefix(Prefix = "name")
     private String name;
     private Integer age;
 
-    @ValuePrefixCollection
+    @ValuePrefixCollection(Prefix = "nameList")
     private List<String> nameList;
 
     public Panda() {

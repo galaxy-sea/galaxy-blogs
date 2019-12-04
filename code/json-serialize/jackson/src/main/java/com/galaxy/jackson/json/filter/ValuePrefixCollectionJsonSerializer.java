@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JacksonStdImpl;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import com.fasterxml.jackson.databind.ser.std.StaticListSerializerBase;
 import com.galaxy.jackson.bean.Panda;
 
@@ -24,6 +25,9 @@ import java.util.Collection;
  */
 @JacksonStdImpl
 public class ValuePrefixCollectionJsonSerializer extends StaticListSerializerBase<Collection<String>> {
+
+    private String prefix = "";
+
     public final static ValuePrefixCollectionJsonSerializer instance = new ValuePrefixCollectionJsonSerializer();
 
     /*
@@ -31,6 +35,13 @@ public class ValuePrefixCollectionJsonSerializer extends StaticListSerializerBas
     /* Life-cycle
     /**********************************************************
      */
+
+
+    @Override
+    public JsonSerializer<?> createContextual(SerializerProvider serializers, BeanProperty property) throws JsonMappingException {
+        prefix = property.getAnnotation(ValuePrefixCollection.class).Prefix();
+        return super.createContextual(serializers, property);
+    }
 
     protected ValuePrefixCollectionJsonSerializer() {
         super(Collection.class);
@@ -91,7 +102,7 @@ public class ValuePrefixCollectionJsonSerializer extends StaticListSerializerBas
                 if (str == null) {
                     provider.defaultSerializeNull(g);
                 } else {
-                    g.writeString(Panda.PREFIX + str);
+                    g.writeString(prefix + str);
                 }
                 ++i;
             }
