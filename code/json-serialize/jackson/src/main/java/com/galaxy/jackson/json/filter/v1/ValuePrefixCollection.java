@@ -1,4 +1,4 @@
-package com.galaxy.jackson.json.filter;
+package com.galaxy.jackson.json.filter.v1;
 
 
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;

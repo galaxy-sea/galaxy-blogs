@@ -1,4 +1,4 @@
-package com.galaxy.jackson.json.filter;
+package com.galaxy.jackson.json.filter.v1;
 
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JacksonStdImpl;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
-import com.galaxy.jackson.bean.Panda;
 
 import java.io.IOException;
 import java.lang.reflect.Field;

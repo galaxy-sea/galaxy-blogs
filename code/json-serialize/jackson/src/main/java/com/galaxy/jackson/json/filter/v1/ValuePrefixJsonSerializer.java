@@ -1,4 +1,4 @@
-package com.galaxy.jackson.json.filter;
+package com.galaxy.jackson.json.filter.v1;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.BeanProperty;
@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
+import com.galaxy.jackson.json.filter.ValuePrefix;
 
 import java.io.IOException;
 
@@ -15,6 +16,8 @@ import java.io.IOException;
 public class ValuePrefixJsonSerializer extends JsonSerializer<String> implements ContextualSerializer {
 
     private String prefix = "";
+
+
 
     @Override
     public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property) throws JsonMappingException {

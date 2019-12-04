@@ -3,6 +3,9 @@ package com.galaxy.jackson.json.filter;
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.galaxy.jackson.json.filter.v1.ValuePrefixJsonDeserializer;
+import com.galaxy.jackson.json.filter.v1.ValuePrefixJsonSerializer;
+import com.galaxy.jackson.json.filter.v2.ValuePrefixJsonSerializerFactory;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -16,8 +19,15 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
 @JacksonAnnotationsInside
-@JsonSerialize(using = ValuePrefixJsonSerializer.class)
+
+
+//@JsonSerialize(using = ValuePrefixJsonSerializer.class)
+//@JsonDeserialize(using = ValuePrefixJsonDeserializer.class)
+
+@JsonSerialize(using = ValuePrefixJsonSerializerFactory.class)
 @JsonDeserialize(using = ValuePrefixJsonDeserializer.class)
+
+
 public @interface ValuePrefix {
 
     String Prefix() default "";

@@ -1,14 +1,10 @@
 package com.galaxy.jackson.bean;
 
 import com.galaxy.jackson.json.filter.ValuePrefix;
-import com.galaxy.jackson.json.filter.v1.ValuePrefixCollection;
 
 import java.util.List;
 
-/**
- * @author galaxy
- */
-public class Panda {
+public class Cat {
 
     @ValuePrefix(Prefix = "phone")
     private String phone;
@@ -16,19 +12,19 @@ public class Panda {
     private String name;
     private Integer age;
 
-    @ValuePrefixCollection(Prefix = "nameList")
+    @ValuePrefix(Prefix = "nameList")
     private List<String> nameList;
 
-    public Panda() {
+    public Cat() {
     }
 
-    public Panda(String phone, String name, Integer age) {
+    public Cat(String phone, String name, Integer age) {
         this.phone = phone;
         this.name = name;
         this.age = age;
     }
 
-    public Panda(String phone, String name, Integer age, List<String> nameList) {
+    public Cat(String phone, String name, Integer age, List<String> nameList) {
         this.phone = phone;
         this.name = name;
         this.age = age;
