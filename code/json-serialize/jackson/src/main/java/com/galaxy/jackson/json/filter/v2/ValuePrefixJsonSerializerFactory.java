@@ -39,7 +39,7 @@ public class ValuePrefixJsonSerializerFactory extends JsonSerializer<Object> imp
         }
 
         // Collection类型
-        if (property.getType().isCollectionLikeType()) {
+        if (type.isCollectionLikeType()) {
             return new CollectionPrefixJsonSerializer();
         }
 
@@ -81,19 +81,11 @@ public class ValuePrefixJsonSerializerFactory extends JsonSerializer<Object> imp
      */
     class CollectionPrefixJsonSerializer extends StaticListSerializerBase<Collection<String>> {
 
-        private String prefix = "";
-
         /*
         /**********************************************************
         /* Life-cycle
         /**********************************************************
          */
-
-        @Override
-        public JsonSerializer<?> createContextual(SerializerProvider serializers, BeanProperty property) throws JsonMappingException {
-            prefix = property.getAnnotation(ValuePrefixCollection.class).Prefix();
-            return super.createContextual(serializers, property);
-        }
 
         protected CollectionPrefixJsonSerializer() {
             super(Collection.class);

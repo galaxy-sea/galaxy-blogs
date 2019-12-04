@@ -32,11 +32,17 @@ class JacksonApplicationTests {
         Panda panda = new Panda("132123", "名称", 17);
 
         List<String> data = new ArrayList<String>();
-        data.add("1");
-        data.add("2");
-        data.add("3");
-        data.add("4");
-        panda.setNameList(data);
+        data.add("v1");
+        data.add("v1v1");
+        data.add("v1v1v1");
+        data.add("v1v1v1v1");
+        panda.setNameListV1(data);
+        data = new ArrayList<String>();
+        data.add("v2");
+        data.add("v2v2");
+        data.add("v2v2v2");
+        data.add("v2v2v2v2");
+        panda.setNameListV2(data);
 
         String json = objectMapper.writeValueAsString(panda);
         System.out.println(json);
@@ -44,7 +50,7 @@ class JacksonApplicationTests {
 
     @Test
     public void JsonDeserializer() throws JsonProcessingException {
-        Panda panda = objectMapper.readValue("{\"phone\":null,\"name\":\"name名称\",\"age\":17,\"nameList\":[\"nameList1111\",\"nameList2222\",\"nameList3333\",\"nameList44444\"]}", Panda.class);
+        Panda panda = objectMapper.readValue("{\"phone\":\"phone132123\",\"name\":\"name名称\",\"age\":17,\"nameListV1\":[\"nameListV11\",\"nameListV12\",\"nameListV13\",\"nameListV14\"],\"nameListV2\":[\"nameListV21\",\"nameListV22\",\"nameListV23\",\"nameListV24\"]}", Panda.class);
         System.out.println(panda);
     }
 }

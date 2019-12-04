@@ -3,8 +3,7 @@ package com.galaxy.jackson.json.filter;
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.galaxy.jackson.json.filter.v1.ValuePrefixJsonDeserializer;
-import com.galaxy.jackson.json.filter.v1.ValuePrefixJsonSerializer;
+import com.galaxy.jackson.json.filter.v2.ValuePrefixJsonDeserializerFactory;
 import com.galaxy.jackson.json.filter.v2.ValuePrefixJsonSerializerFactory;
 
 import java.lang.annotation.ElementType;
@@ -25,7 +24,7 @@ import java.lang.annotation.Target;
 //@JsonDeserialize(using = ValuePrefixJsonDeserializer.class)
 
 @JsonSerialize(using = ValuePrefixJsonSerializerFactory.class)
-@JsonDeserialize(using = ValuePrefixJsonDeserializer.class)
+@JsonDeserialize(using = ValuePrefixJsonDeserializerFactory.class)
 
 
 public @interface ValuePrefix {

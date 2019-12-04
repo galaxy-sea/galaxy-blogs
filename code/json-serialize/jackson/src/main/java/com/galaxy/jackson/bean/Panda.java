@@ -16,8 +16,11 @@ public class Panda {
     private String name;
     private Integer age;
 
-    @ValuePrefixCollection(Prefix = "nameList")
-    private List<String> nameList;
+//    @ValuePrefixCollection(Prefix = "nameListV1     ")
+    private List<String> nameListV1;
+
+    @ValuePrefix(Prefix = "nameListV2   ")
+    private List<String> nameListV2;
 
     public Panda() {
     }
@@ -32,7 +35,8 @@ public class Panda {
         this.phone = phone;
         this.name = name;
         this.age = age;
-        this.nameList = nameList;
+        this.nameListV1 = nameList;
+        this.nameListV2 = nameList;
     }
 
     public String getPhone() {
@@ -59,12 +63,20 @@ public class Panda {
         this.age = age;
     }
 
-    public List<String> getNameList() {
-        return nameList;
+    public List<String> getNameListV1() {
+        return nameListV1;
     }
 
-    public void setNameList(List<String> nameList) {
-        this.nameList = nameList;
+    public void setNameListV1(List<String> nameListV1) {
+        this.nameListV1 = nameListV1;
+    }
+
+    public List<String> getNameListV2() {
+        return nameListV2;
+    }
+
+    public void setNameListV2(List<String> nameListV2) {
+        this.nameListV2 = nameListV2;
     }
 
     @Override
@@ -73,7 +85,8 @@ public class Panda {
                 "phone='" + phone + '\'' +
                 ", name='" + name + '\'' +
                 ", age=" + age +
-                ", nameList=" + nameList +
+                ", nameListV1=" + nameListV1 +
+                ", nameListV2=" + nameListV2 +
                 '}';
     }
 }
