@@ -12,9 +12,9 @@ public class Panda {
 
     public static final String PREFIX = "前缀";
 
-    @ValuePrefix
+    @ValuePrefix(Prefix = "phone")
     private String phone;
-    @ValuePrefix
+    @ValuePrefix(Prefix = "name")
     private String name;
     private Integer age;
 

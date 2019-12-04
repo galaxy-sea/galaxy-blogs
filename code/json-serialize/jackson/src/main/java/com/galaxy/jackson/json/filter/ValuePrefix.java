@@ -19,4 +19,7 @@ import java.lang.annotation.Target;
 @JsonSerialize(using = ValuePrefixJsonSerializer.class)
 @JsonDeserialize(using = ValuePrefixJsonDeserializer.class)
 public @interface ValuePrefix {
+
+    String Prefix() default "";
+
 }

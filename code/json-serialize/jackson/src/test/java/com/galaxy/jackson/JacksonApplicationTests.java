@@ -29,7 +29,7 @@ class JacksonApplicationTests {
 
     @Test
     public void JsonSerializer() throws JsonProcessingException {
-        Panda panda = new Panda("132123", null, 17);
+        Panda panda = new Panda("132123", "名称", 17);
 
         List<String> data = new ArrayList<String>();
         data.add("1");
@@ -44,7 +44,7 @@ class JacksonApplicationTests {
 
     @Test
     public void JsonDeserializer() throws JsonProcessingException {
-        Panda panda = objectMapper.readValue("{\"phone\":\"前缀132123\",\"name\":null,\"age\":17,\"nameList\":[\"前缀1\",null,\"前缀3\",\"前缀4\"]}", Panda.class);
+        Panda panda = objectMapper.readValue("{\"phone\":null,\"name\":\"name名称\",\"age\":17,\"nameList\":[\"前缀1\",\"前缀2\",\"前缀3\",\"前缀4\"]}", Panda.class);
         System.out.println(panda);
     }
 }
