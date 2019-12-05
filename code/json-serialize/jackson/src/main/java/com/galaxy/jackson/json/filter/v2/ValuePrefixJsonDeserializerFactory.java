@@ -91,6 +91,10 @@ public class ValuePrefixJsonDeserializerFactory extends JsonDeserializer<Object>
         public Collection<String> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
             JsonNode jsonNode = jp.getCodec().readTree(jp);
             Iterator<JsonNode> elements = jsonNode.elements();
+            return deserialize(elements);
+        }
+
+        private Collection deserialize(Iterator<JsonNode> elements) {
             while (elements.hasNext()) {
                 JsonNode node = elements.next();
                 if (node.isNull()) {
@@ -102,8 +106,5 @@ public class ValuePrefixJsonDeserializerFactory extends JsonDeserializer<Object>
             }
             return collection;
         }
-
     }
-
-
 }
