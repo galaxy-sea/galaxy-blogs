@@ -37,7 +37,7 @@ public class ValuePrefixCollectionJsonSerializer extends StaticListSerializerBas
 
     @Override
     public JsonSerializer<?> createContextual(SerializerProvider serializers, BeanProperty property) throws JsonMappingException {
-        prefix = property.getAnnotation(ValuePrefixCollection.class).Prefix();
+        prefix = property.getAnnotation(ValuePrefixCollection.class).prefix();
         return super.createContextual(serializers, property);
     }
 

@@ -21,7 +21,7 @@ public class ValuePrefixJsonSerializerFactory extends JsonSerializer<Object> imp
 
     @Override
     public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property) throws JsonMappingException {
-        prefix = property.getAnnotation(ValuePrefix.class).Prefix();
+        prefix = property.getAnnotation(ValuePrefix.class).prefix();
         JavaType type = property.getType();
 
         // string类型

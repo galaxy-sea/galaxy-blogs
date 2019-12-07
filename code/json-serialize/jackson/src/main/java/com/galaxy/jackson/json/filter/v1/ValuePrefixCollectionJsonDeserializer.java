@@ -29,7 +29,7 @@ public class ValuePrefixCollectionJsonDeserializer extends JsonDeserializer<Coll
 
     @Override
     public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
-        prefix = property.getAnnotation(ValuePrefixCollection.class).Prefix();
+        prefix = property.getAnnotation(ValuePrefixCollection.class).prefix();
         return this;
     }
 

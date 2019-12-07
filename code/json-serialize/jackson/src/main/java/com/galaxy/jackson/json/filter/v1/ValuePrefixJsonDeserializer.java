@@ -19,7 +19,7 @@ public class ValuePrefixJsonDeserializer extends JsonDeserializer<String> implem
 
     @Override
     public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
-        prefix = property.getAnnotation(ValuePrefix.class).Prefix();
+        prefix = property.getAnnotation(ValuePrefix.class).prefix();
         return this;
     }
 

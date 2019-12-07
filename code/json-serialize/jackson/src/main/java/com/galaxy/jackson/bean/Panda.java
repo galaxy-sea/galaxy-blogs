@@ -1,7 +1,6 @@
 package com.galaxy.jackson.bean;
 
 import com.galaxy.jackson.json.filter.ValuePrefix;
-import com.galaxy.jackson.json.filter.v1.ValuePrefixCollection;
 
 import java.util.List;
 
@@ -10,16 +9,16 @@ import java.util.List;
  */
 public class Panda {
 
-    @ValuePrefix(Prefix = "phone")
+    @ValuePrefix(prefix = "phone")
     private String phone;
-    @ValuePrefix(Prefix = "name")
+    @ValuePrefix(prefix = "name")
     private String name;
     private Integer age;
 
 //    @ValuePrefixCollection(Prefix = "nameListV1     ")
     private List<String> nameListV1;
 
-    @ValuePrefix(Prefix = "nameListV2   ")
+    @ValuePrefix(prefix = "nameListV2   ")
     private List<String> nameListV2;
 
     public Panda() {

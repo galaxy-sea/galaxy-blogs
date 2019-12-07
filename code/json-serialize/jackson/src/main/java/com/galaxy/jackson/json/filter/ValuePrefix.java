@@ -29,6 +29,6 @@ import java.lang.annotation.Target;
 
 public @interface ValuePrefix {
 
-    String Prefix() default "";
+    String prefix() default "";
 
 }

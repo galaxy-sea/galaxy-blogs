@@ -31,7 +31,7 @@ public class ValuePrefixJsonDeserializerFactory extends JsonDeserializer<Object>
 
     @Override
     public JsonDeserializer<?> createContextual(DeserializationContext deserializationContext, BeanProperty beanProperty) throws JsonMappingException {
-        prefix = beanProperty.getAnnotation(ValuePrefix.class).Prefix();
+        prefix = beanProperty.getAnnotation(ValuePrefix.class).prefix();
         JavaType type = beanProperty.getType();
 
         // string类型
