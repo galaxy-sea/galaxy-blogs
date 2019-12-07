@@ -13,6 +13,7 @@ import java.io.IOException;
 /**
  * @author galaxy
  */
+@Deprecated
 public class ValuePrefixJsonDeserializer extends JsonDeserializer<String> implements ContextualDeserializer {
 
     private String prefix = "";

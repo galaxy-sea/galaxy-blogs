@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JacksonStdImpl;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
+import com.galaxy.jackson.json.filter.ValuePrefix;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -23,13 +24,14 @@ import java.util.Iterator;
  * @author galaxy
  */
 @JacksonStdImpl
+@Deprecated
 public class ValuePrefixCollectionJsonDeserializer extends JsonDeserializer<Collection<String>> implements ContextualDeserializer {
 
     private String prefix = "";
 
     @Override
     public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
-        prefix = property.getAnnotation(ValuePrefixCollection.class).prefix();
+        prefix = property.getAnnotation(ValuePrefix.class).prefix();
         return this;
     }
 

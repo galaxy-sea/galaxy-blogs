@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.std.StaticListSerializerBase;
+import com.galaxy.jackson.json.filter.ValuePrefix;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -22,6 +23,7 @@ import java.util.Collection;
  * @author galaxy
  */
 @JacksonStdImpl
+@Deprecated
 public class ValuePrefixCollectionJsonSerializer extends StaticListSerializerBase<Collection<String>> {
 
     private String prefix = "";
@@ -37,7 +39,7 @@ public class ValuePrefixCollectionJsonSerializer extends StaticListSerializerBas
 
     @Override
     public JsonSerializer<?> createContextual(SerializerProvider serializers, BeanProperty property) throws JsonMappingException {
-        prefix = property.getAnnotation(ValuePrefixCollection.class).prefix();
+        prefix = property.getAnnotation(ValuePrefix.class).prefix();
         return super.createContextual(serializers, property);
     }
 
