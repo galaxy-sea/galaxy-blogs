@@ -51,7 +51,7 @@ public class ValuePrefixJsonSerializerFactory extends JsonSerializer<Object> imp
     /**
      * --------string类型-------------------------------------------------
      */
-    class StringPrefixJsonSerializer extends JsonSerializer<String> {
+   private class StringPrefixJsonSerializer extends JsonSerializer<String> {
         @Override
         public void serialize(String value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
             if (value == null) {

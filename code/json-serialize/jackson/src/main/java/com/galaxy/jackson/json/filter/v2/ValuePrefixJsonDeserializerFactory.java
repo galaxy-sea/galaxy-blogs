@@ -49,7 +49,6 @@ public class ValuePrefixJsonDeserializerFactory extends JsonDeserializer<Object>
             } else {
                 throw new JsonMappingException("不是 list 或者 set 接口");
             }
-            return new ValuePrefixCollectionJsonDeserializer();
         }
 
         // map类型
@@ -68,7 +67,7 @@ public class ValuePrefixJsonDeserializerFactory extends JsonDeserializer<Object>
     /**
      * string ----------------------------------------
      */
-    class ValuePrefixJsonDeserializer extends JsonDeserializer<String> {
+  private class ValuePrefixJsonDeserializer extends JsonDeserializer<String> {
 
         @Override
         public String deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
@@ -84,7 +83,7 @@ public class ValuePrefixJsonDeserializerFactory extends JsonDeserializer<Object>
     /**
      * Collection  ---------------------------------------
      */
-    class ValuePrefixCollectionJsonDeserializer extends JsonDeserializer<Collection<String>> {
+    private class ValuePrefixCollectionJsonDeserializer extends JsonDeserializer<Collection<String>> {
 
 
         @Override

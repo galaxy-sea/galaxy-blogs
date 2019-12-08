@@ -15,7 +15,7 @@
     - [2.3.1. SimpleModule](#231-simplemodule)
     - [2.3.2. @Deserializer注解](#232-deserializer%e6%b3%a8%e8%a7%a3)
     - [2.3.3. CustomDeserializerFactory](#233-customdeserializerfactory)
-- [3. 自定义序列化准备](#3-%e8%87%aa%e5%ae%9a%e4%b9%89%e5%ba%8f%e5%88%97%e5%8c%96%e5%87%86%e5%a4%87)
+- [3. 实践操作](#3-%e5%ae%9e%e8%b7%b5%e6%93%8d%e4%bd%9c)
 - [4. JsonSerializer](#4-jsonserializer)
   - [4.1. 自定义StringJsonSerializer](#41-%e8%87%aa%e5%ae%9a%e4%b9%89stringjsonserializer)
   - [4.2. 自定义CollectionJsonSerializer](#42-%e8%87%aa%e5%ae%9a%e4%b9%89collectionjsonserializer)
@@ -23,11 +23,10 @@
   - [4.4. 自定义MapJsonSerializer](#44-%e8%87%aa%e5%ae%9a%e4%b9%89mapjsonserializer)
     - [4.4.1. _keySerializer](#441-keyserializer)
     - [4.4.2. _valueSerializer](#442-valueserializer)
-- [5. @JsonSerialize注解](#5-jsonserialize%e6%b3%a8%e8%a7%a3)
-  - [5.1. ValuePrefixJsonSerializerFactory](#51-valueprefixjsonserializerfactory)
-- [6. 反序列化](#6-%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96)
-- [7. 优化](#7-%e4%bc%98%e5%8c%96)
-- [8. 参考](#8-%e5%8f%82%e8%80%83)
+  - [4.5. ValuePrefixJsonSerializerFactory](#45-valueprefixjsonserializerfactory)
+- [5. 反序列化](#5-%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96)
+  - [5.1. ValuePrefixJsonDeserializerFactory](#51-valueprefixjsondeserializerfactory)
+- [6. 参考](#6-%e5%8f%82%e8%80%83)
 
 <!-- /TOC -->
 
@@ -284,82 +283,21 @@ public abstract class JSR310DateTimeDeserializerBase<T> extends JSR310Deserializ
 后面章节手动实现一个DeserializerFactory
 ```
 
+# 3. 实践操作
 
+> 业务分析, 只要字段上面注解了``@ValuePrefix``注解,就需要序列化时让``value``前加上前缀,<br>
+> 所以我们需要定义一个``@ValuePrefix``注解用于注册``JsonSerialize``和``JsonDeserialize``<br>
+> 要需要定义一个bean用于序列化和反序列化, 详细代码如下
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 3. 自定义序列化准备
-
-对
 
 ```java
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
 
-
+// 指定序列化
 @JsonSerialize(using = ValuePrefixJsonSerializerFactory.class)
+// 指定反序列化
 @JsonDeserialize(using = ValuePrefixJsonDeserializerFactory.class)
 public @interface ValuePrefix {
     String prefix() default "前缀";
@@ -386,16 +324,6 @@ public class Panda {
 ```
 
 # 4. JsonSerializer
-
-> 序列化抽象类
->
-> 在 jackson 自定义序列化中提供了两个抽象类，``com.fasterxml.jackson.databind.JsonSerializer``和``com.fasterxml.jackson.databind.ser.std.StdSerializer``。一般，我们可以直接继承``JsonSerializer``抽象类就已经足够满足我们的自定义序列化需求了。
-
-![StdScalarSerializer UML](https://github.com/galaxy-sea/galaxy-blogs/blob/master/image/StdScalarSerializer.png)
-
-> 序列化上下文接口
-> 
->在自定义序列化的时候我们需要拿到字段上面的注解参数, 这个时候就需要获取上下文, jackson提供了``com.fasterxml.jackson.databind.ser.ContextualSerializer``, 只要实现了``ContextualSerializer``就可以获取上下文关系
 
 ## 4.1. 自定义StringJsonSerializer
 jackson 提供了一个``String``序列化类``com.fasterxml.jackson.databind.ser.std.StringSerializer``, 但是``StringSerializer``类被``final``修饰了不能被继承, 但是无妨我们学习, 我们可以查看``StringSerializer.serialize()``方法,惊奇的发现, 我草这个方法好简单,
@@ -473,38 +401,198 @@ jackson 提供了一个``String``序列化类``com.fasterxml.jackson.databind.se
 // 不想看源码了,不想写
 ```
 
-# 5. @JsonSerialize注解
-通过注解的方式注册序列化方法，对使用体验来说非常友好。但是会存在两个问题：
-<br/>首先，提供的序列化类的功能比较简单，然后，就是提供的粒度比较小，然后你想在全局的某个类型上都是有自定义序列化，则需要对每个对象类型上都需要标记注解。
 
-``@JsonSerialize`` 注解的配置参数有很多种，但是我们只需要using这种来指明具体的自定义序列化类就可以了
+## 4.5. ValuePrefixJsonSerializerFactory
+到这里你就发现了, bean只能指定一个序列化对象, 不能指定多个序列化对象, 一个注解很难满足多个类型序列化, 这个时候我们就需要``SerializerFactory``来帮助我们选择合适的序列化了, 下面我们就来动手实现一个,
+同时优化一下上面的代码, <br>
 
-## 5.1. ValuePrefixJsonSerializerFactory
-我们在第二章定义的@ValuePrefix注册的序列化类是``ValuePrefixJsonSerializerFactory``, 之所以使用这个类是因为刚开始写反序列化的时候
+在定义的@ValuePrefix注册的序列化类是``ValuePrefixJsonSerializerFactory``, 
+
+我们上面自己定义的``JsonSerializerFactory``对象都定义为``ValuePrefixJsonSerializerFactory``内部类
+
+``ContextualSerializer.createContextual()``方法有个很有趣的地方那就是它的返回值居然是``JsonSerializer``, 所以在获取上下文的时候我们可以返回相应的``JsonSerializer``
+
 
 ```java
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD})
+/**
+ * @author Galaxy
+ */
+public class ValuePrefixJsonSerializerFactory extends JsonSerializer<Object> implements ContextualSerializer {
 
-// 第五章解释
-@JsonSerialize(using = ValuePrefixJsonSerializerFactory.class)
-// 第XX解释
-@JsonDeserialize(using = ValuePrefixJsonDeserializerFactory.class)
-public @interface ValuePrefix {
-    String prefix() default "前缀";
+    private String prefix = "";
+
+    @Override
+    public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property) throws JsonMappingException {
+        prefix = property.getAnnotation(ValuePrefix.class).prefix();
+        JavaType type = property.getType();
+
+        // string类型
+        if (type.isTypeOrSubTypeOf(String.class)) {
+            return new StringPrefixJsonSerializer();
+        }
+
+        // Collection类型
+        if (type.isCollectionLikeType()) {
+            return new CollectionPrefixJsonSerializer();
+        }
+
+        // map类型
+        //        if (property.getType().isMapLikeType()) {
+        //            return this;
+        //        }
+        throw new JsonMappingException("不支持的类型,  仅支持 String, Collection");
+    }
+
+
+    @Override
+    public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+
+    }
+
+
+    /**
+     * --------string类型-------------------------------------------------
+     */
+   private class StringPrefixJsonSerializer extends JsonSerializer<String> {
+        @Override
+        public void serialize(String value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+            if (value == null) {
+                serializers.defaultSerializeNull(gen);
+            } else {
+                gen.writeString(prefix + value);
+            }
+        }
+    }
+
+
+    /**
+     * --------Collection类型-------------------------------------------------
+     */
+    private class CollectionPrefixJsonSerializer extends JsonSerializer<Collection<String>> {
+
+        @Override
+        public void serialize(Collection<String> value, JsonGenerator g, SerializerProvider provider) throws IOException {
+            g.setCurrentValue(value);
+            int len = value.size();
+            g.writeStartArray(len);
+            serializeContents(value, g, provider);
+            g.writeEndArray();
+        }
+
+        private final void serializeContents(Collection<String> value, JsonGenerator g, SerializerProvider provider) throws IOException {
+            for (String str : value) {
+                if (str == null) {
+                    provider.defaultSerializeNull(g);
+                } else {
+                    g.writeString(prefix + str);
+                }
+            }
+        }
+    }
+}
+```
+到这里我们的序列化工作就完成了, 我就讲讲反序列化吧, 
+
+
+# 5. 反序列化
+序列化和反序列化车操作差不多,大家可以自己看源码操作, 下面直接贴出反序列化的源代码吧
+
+## 5.1. ValuePrefixJsonDeserializerFactory
+
+```java
+/**
+ * @author Galaxy
+ */
+public class ValuePrefixJsonDeserializerFactory extends JsonDeserializer<Object> implements ContextualDeserializer {
+
+    private String prefix = "";
+
+    private Collection collection;
+
+
+    @Override
+    public JsonDeserializer<?> createContextual(DeserializationContext deserializationContext, BeanProperty beanProperty) throws JsonMappingException {
+        prefix = beanProperty.getAnnotation(ValuePrefix.class).prefix();
+        JavaType type = beanProperty.getType();
+
+        // string类型
+        if (type.isTypeOrSubTypeOf(String.class)) {
+            return new ValuePrefixJsonDeserializer();
+        }
+
+        // Collection类型
+        if (type.isCollectionLikeType()) {
+
+            if (type.isTypeOrSubTypeOf(List.class)) {
+                collection = new ArrayList();
+            } else if (type.isTypeOrSubTypeOf(Set.class)) {
+                collection = new HashSet();
+            } else {
+                throw new JsonMappingException("不是 list 或者 set 接口");
+            }
+            return new ValuePrefixCollectionJsonDeserializer();
+        }
+
+        // map类型
+        //        if (property.getType().isMapLikeType()) {
+        //            return this;
+        //        }
+        throw new JsonMappingException("不支持的类型,  仅支持 String, Collection");
+    }
+
+    @Override
+    public Object deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        return null;
+    }
+
+
+    /**
+     * string ----------------------------------------
+     */
+    class ValuePrefixJsonDeserializer extends JsonDeserializer<String> {
+
+        @Override
+        public String deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+            String text = p.getText();
+            if (text != null) {
+                return text.replace(prefix, "");
+            }
+            return text;
+        }
+    }
+
+
+    /**
+     * Collection  ---------------------------------------
+     */
+    class ValuePrefixCollectionJsonDeserializer extends JsonDeserializer<Collection<String>> {
+
+
+        @Override
+        public Collection<String> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+            JsonNode jsonNode = jp.getCodec().readTree(jp);
+            Iterator<JsonNode> elements = jsonNode.elements();
+            return deserialize(elements);
+        }
+
+        private Collection deserialize(Iterator<JsonNode> elements) {
+            while (elements.hasNext()) {
+                JsonNode node = elements.next();
+                if (node.isNull()) {
+                    collection.add(null);
+                } else {
+                    String text = node.asText().replace(prefix, "");
+                    collection.add(text);
+                }
+            }
+            return collection;
+        }
+    }
 }
 ```
 
 
-
-# 6. 反序列化
-
-# 7. 优化
-
-
-
-
-# 8. 参考
+# 6. 参考
 - https://yanbin.blog/customize-jackson-annotation-and-disable-specific-annotation/
 - https://blog.csdn.net/liuxiao723846/article/details/42921333
 - https://stackoverflow.com/questions/43214545/customdeserializer-has-no-default-no-arg-constructor
