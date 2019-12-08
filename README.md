@@ -8,5 +8,5 @@
 - Spring IOC
 - 数据库集群（一主多从）
 - MyBatis（动态数据源）
-- JSON框架
+- JSON框架(jackson序列化和反序列化完成,  // todo fastjson序列化和反序列化)
 - XML解析框架
