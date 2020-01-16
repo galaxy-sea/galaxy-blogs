@@ -11,7 +11,7 @@
 | 名称                           | 作用                                                                                                                              |
 | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
 | Free Mybatis plugin            | 生成mapper xml文件 <br>快速从代码跳转到mapper及从mapper返回代码<br>mybatis自动补全及语法错误提示<br>集成mybatis generator gui界面 |
-| MyBatisCodeHelperPro           | 功能比上一个牛逼,收费但是挺好用的                                                                                                                  |
+| MyBatisCodeHelperPro           | 功能比上一个牛逼,收费但是挺好用的                                                                                                 |
 | MyBatis Log Plugin             | 把 mybatis 输出的sql日志还原成完整的sql语句。                                                                                     |
 | generateAllSetMethod           | 一键调用一个对象的所有的set方法                                                                                                   |
 | GenerateSerialVersionUID       | 生成UUID                                                                                                                          |
@@ -25,7 +25,8 @@
 | translation                    | 翻译软件                                                                                                                          |
 | Alibaba Java Coding Guidelines | 阿里巴巴代码检查工具                                                                                                              |
 | CodeGlance                     | 代码小地图预览                                                                                                                    |
-
+| JRebel for IntelliJ            | 热加载插件 - command+F9编译静态文件 - 淘宝有售(IPhone备忘录存有账号信息)                                                          |
+| JJRebel mybatisPlus extension  | 解决mybatis-plus无法热加载问题                                                                                                    |
 
 
 ## 1.2. idea常用配置
