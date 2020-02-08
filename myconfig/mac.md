@@ -5,6 +5,8 @@
 | The Unarchiver | 解压工具   | appStore                                  |
 | unrar          | 解压工具   | https://www.jianshu.com/p/e001591f5366    |
 | CheatSheet     | 快捷键映射 | https://www.mediaatelier.com/GrandTotal6/ |
+| GhostTile     | 隐藏dock图标 |  |
+| Magnet     | 窗口管理工具 |  |
 
 # IDE
 - Java
