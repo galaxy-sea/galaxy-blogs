@@ -17,3 +17,18 @@ spring:
         # 集群名称
 #        cluster-name: alien
 
+
+# ribbon start
+#  单独配置客户端  <clientName>.ribbon.NFLoadBalancerRuleClassName: Should implement IRule
+
+ribbon:
+  # 饿加载开启,  clients指定客户端可以用,隔离alien-server,alien-server,alien-server
+  eager-load:
+    enabled: true
+    clients: alien-server
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+
