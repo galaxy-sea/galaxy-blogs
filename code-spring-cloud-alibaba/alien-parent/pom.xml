@@ -35,6 +35,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <package.path></package.path>
+
 
         <com.alibaba.cloud.version.version>2.1.0.RELEASE</com.alibaba.cloud.version.version>
         <spring-cloud-starter-openfeign.version>2.1.0.RELEASE</spring-cloud-starter-openfeign.version>

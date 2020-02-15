@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AlienServerController {
 
-    @GetMapping("hello/")
+    @GetMapping("hello")
     public String hello(@RequestParam String name){
         log.info("----------");
         return "hello " + name;

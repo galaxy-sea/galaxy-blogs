@@ -1,4 +1,4 @@
-package com.galaxy.alien.client;
+package com.galaxy.alien.client.ribbon;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +14,14 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class HttpClientDemo {
+public class RibbonClientDemo {
+
 
     private final RestTemplate restTemplate;
     private final WebClient.Builder webClient;
 
     private final DiscoveryClient discoveryClient;
 
-    private final AlienServerFeignClient alienServerFeignClient;
 
     @GetMapping("restTemplate")
     public String restTemplate() {
@@ -56,14 +56,6 @@ public class HttpClientDemo {
 
         return "Return : " + result;
     }
-
-
-    @GetMapping("feignClient")
-    public String feignClient() throws Exception {
-        String result = alienServerFeignClient.hello("feignClient");
-        return "Return : " + result;
-    }
-
 
 
 }
