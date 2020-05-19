@@ -167,7 +167,7 @@ alias CDATA #REQUIRED
 type CDATA #REQUIRED
 >
 
-<!ELEMENT select (#PCDATA | include | trim | where | set | foreach | choose | if | bind)*>
+<!ELEMENT select (#PCDATA | include | trim | where | set | foreach | choose | if | bind | in)*>
 <!ATTLIST select
 id CDATA #REQUIRED
 parameterMap CDATA #IMPLIED
@@ -287,6 +287,10 @@ test CDATA #REQUIRED
 
 <!ELEMENT if (#PCDATA | include | trim | where | set | foreach | choose | if | bind)*>
 <!ATTLIST if
+test CDATA #REQUIRED
+>
+<!ELEMENT in EMPTY>
+<!ATTLIST in
 test CDATA #REQUIRED
 >
 
