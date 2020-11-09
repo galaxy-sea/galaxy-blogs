@@ -47,4 +47,9 @@ public class HelloResultController {
     public HashMap<String, Object> helloMyError() throws Exception {
         throw new ResultException();
     }
+
+    @GetMapping(value = "helloString")
+    public String helloString() throws Exception {
+        return "helloString";
+    }
 }
