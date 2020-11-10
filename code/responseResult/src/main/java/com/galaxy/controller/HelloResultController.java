@@ -1,12 +1,10 @@
-package com.galaxy.contorller;
+package com.galaxy.controller;
 
 import com.galaxy.result.ResponseResultBody;
 import com.galaxy.result.Result;
 import com.galaxy.result.exception.ResultException;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -18,9 +16,9 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/error")
-@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Java的异常")
-public class HelloExceptionController {
+@RequestMapping("/helloResult")
+@ResponseResultBody
+public class HelloResultController {
 
     private static final HashMap<String, Object> INFO;
 
@@ -30,24 +28,33 @@ public class HelloExceptionController {
         INFO.put("age", "70");
     }
 
-    @GetMapping()
-    public HashMap<String, Object> helloError() throws Exception {
-        throw new Exception("helloError");
+    @GetMapping("hello")
+    public HashMap<String, Object> hello() {
+        return INFO;
     }
 
-    @GetMapping("helloJavaError")
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Java的异常")
-    public HashMap<String, Object> helloJavaError() throws Exception {
+    @GetMapping("result")
+    public Result<Map<String, Object>> helloResult() {
+        return Result.success(INFO);
+    }
+
+    @GetMapping("helloError")
+    public HashMap<String, Object> helloError() throws Exception {
         throw new Exception("helloError");
     }
 
     @GetMapping("helloMyError")
     public HashMap<String, Object> helloMyError() throws Exception {
-        throw new MyException();
+        throw new ResultException();
     }
-}
 
-@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "自己定义的异常")
-class MyException extends Exception {
+    @GetMapping(value = "testString")
+    public String testString() {
+        return "helloString";
+    }
 
+    @GetMapping(value = "testInt")
+    public Integer testInt() {
+        return 123;
+    }
 }

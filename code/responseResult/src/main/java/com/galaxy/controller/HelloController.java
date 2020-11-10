@@ -1,4 +1,4 @@
-package com.galaxy.contorller;
+package com.galaxy.controller;
 
 import com.galaxy.result.ResponseResultBody;
 import com.galaxy.result.Result;
@@ -42,5 +42,15 @@ public class HelloController {
     @ResponseResultBody
     public Map<String, Object> helloResultBody() {
         return INFO;
+    }
+
+    @GetMapping(value = "testInt")
+    public Integer testInt() throws Exception {
+        return 123;
+    }
+
+    @GetMapping(value = "testString")
+    public String testString() throws Exception {
+        return "123";
     }
 }

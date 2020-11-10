@@ -37,7 +37,6 @@ import java.lang.annotation.Annotation;
 public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
 
     private static final Class<? extends Annotation> ANNOTATION_TYPE = ResponseResultBody.class;
-    private static final Class<? extends HttpMessageConverter<?>> CONVERTER_TYPE = StringHttpMessageConverter.class;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -49,17 +48,10 @@ public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
     }
 
     /** 当类或者方法使用了 @ResponseResultBody 就会调用这个方法 */
-    @SneakyThrows
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if (body instanceof Result) {
             return body;
-        }
-        // TODO: 2020/11/9 直接返回string类型有异常
-        // org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(T, org.springframework.core.MethodParameter, org.springframework.http.server.ServletServerHttpRequest, org.springframework.http.server.ServletServerHttpResponse)
-        //
-        if (body instanceof String) {
-            return objectMapper.writeValueAsString(Result.success(body));
         }
         return Result.success(body);
     }
