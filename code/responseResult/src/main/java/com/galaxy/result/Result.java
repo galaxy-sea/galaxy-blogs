@@ -65,8 +65,4 @@ public class Result<T> {
         }
         return new Result<T>(resultStatus, data);
     }
-
-    public String toJsonString() {
-        return MessageFormat.format("'{'\"code\":{0},\"message\":\"{1}\",\"data\":\"{2}\"'}'", this.code, this.message, data);
-    }
 }

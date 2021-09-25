@@ -57,11 +57,11 @@ public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
         return Result.success(body);
     }
 
-    private Object convert(Result<?> convert, Class<? extends HttpMessageConverter<?>> selectedConverterType) {
-        if (selectedConverterType == StringHttpMessageConverter.class && convert.getData() instanceof String) {
-            return convert.toJsonString();
+    private Object convert(Result<?> result, Class<? extends HttpMessageConverter<?>> selectedConverterType) {
+        if (selectedConverterType == StringHttpMessageConverter.class && result.getData() instanceof String) {
+            return "{\"code\":\"" + result.getCode() + "\",\"message\":\"" + result.getMessage() + "\",\"data\":\"" + result.getData() + "\"}";
         }
-        return convert;
+        return result;
     }
 
 
