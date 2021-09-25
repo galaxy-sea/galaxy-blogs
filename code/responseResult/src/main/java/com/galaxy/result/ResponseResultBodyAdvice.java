@@ -1,10 +1,7 @@
 package com.galaxy.result;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.galaxy.result.exception.ResultException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.HttpHeaders;
@@ -38,8 +35,8 @@ public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
 
     private static final Class<? extends Annotation> ANNOTATION_TYPE = ResponseResultBody.class;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    // @Autowired
+    // private ObjectMapper objectMapper;
 
     /** 判断类或者方法是否使用了 @ResponseResultBody */
     @Override
@@ -53,19 +50,16 @@ public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
         return convert(convert(body), selectedConverterType);
     }
 
-    private Object convert(Object body) {
+    private Result<?> convert(Object body) {
         if (body instanceof Result) {
-            return body;
+            return (Result<?>) body;
         }
         return Result.success(body);
     }
 
-    private Object convert(Object convert, Class<? extends HttpMessageConverter<?>> selectedConverterType) {
-        if (selectedConverterType == StringHttpMessageConverter.class) {
-            try {
-                return objectMapper.writeValueAsString(convert);
-            } catch (JsonProcessingException ignored) {
-            }
+    private Object convert(Result<?> convert, Class<? extends HttpMessageConverter<?>> selectedConverterType) {
+        if (selectedConverterType == StringHttpMessageConverter.class && convert.getData() instanceof String) {
+            return convert.toJsonString();
         }
         return convert;
     }

@@ -4,6 +4,8 @@ import com.galaxy.result.exception.ResultStatus;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.text.MessageFormat;
+
 
 /**
  * 后端返回给前端的json格式
@@ -62,5 +64,9 @@ public class Result<T> {
             return new Result<T>(ResultStatus.INTERNAL_SERVER_ERROR, null);
         }
         return new Result<T>(resultStatus, data);
+    }
+
+    public String toJsonString() {
+        return MessageFormat.format("'{'\"code\":{0},\"message\":\"{1}\",\"data\":\"{2}\"'}'", this.code, this.message, data);
     }
 }
