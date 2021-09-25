@@ -1,8 +1,8 @@
 package com.galaxy.result;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.galaxy.result.exception.ResultException;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -50,17 +50,31 @@ public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
     /** 当类或者方法使用了 @ResponseResultBody 就会调用这个方法 */
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+        return convert(convert(body), selectedConverterType);
+    }
+
+    private Object convert(Object body) {
         if (body instanceof Result) {
             return body;
         }
         return Result.success(body);
     }
 
+    private Object convert(Object convert, Class<? extends HttpMessageConverter<?>> selectedConverterType) {
+        if (selectedConverterType == StringHttpMessageConverter.class) {
+            try {
+                return objectMapper.writeValueAsString(convert);
+            } catch (JsonProcessingException ignored) {
+            }
+        }
+        return convert;
+    }
+
 
     /**
      * 提供对标准Spring MVC异常的处理
      *
-     * @param ex      the target exception
+     * @param ex the target exception
      * @param request the current request
      */
     @ExceptionHandler(Exception.class)
