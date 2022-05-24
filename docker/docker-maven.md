@@ -2,13 +2,22 @@
 <!-- TOC -->
 
 - [1. docker 安装](#1-docker-安装)
-    - [1.1. 本机安装](#11-本机安装)
-        - [idea连接服务器](#idea连接服务器)
-        - [本机环境变量(可选)](#本机环境变量可选)
-    - [1.2. 服务器安装](#12-服务器安装)
-        - [1.2.1. 安装](#121-安装)
-        - [1.2.2. 开启远程端口](#122-开启远程端口)
+  - [1.1. 本机安装](#11-本机安装)
+    - [1.1.1. idea连接服务器](#111-idea连接服务器)
+    - [1.1.2. 本机环境变量(可选)](#112-本机环境变量可选)
+  - [1.2. 服务器安装](#12-服务器安装)
+    - [1.2.1. 安装](#121-安装)
+    - [1.2.2. 阿里云镜像加速](#122-阿里云镜像加速)
+    - [1.2.3. 开启远程端口](#123-开启远程端口)
 - [2. docker maven 插件](#2-docker-maven-插件)
+  - [2.1. spring-boot-maven-plugin 使用](#21-spring-boot-maven-plugin-使用)
+  - [2.2. dockerfile-maven-plugin](#22-dockerfile-maven-plugin)
+- [3. 常用中间件部署](#3-常用中间件部署)
+  - [3.1. redis](#31-redis)
+  - [3.2. nacos](#32-nacos)
+  - [3.3. mysql](#33-mysql)
+  - [3.4. rocketmq](#34-rocketmq)
+  - [3.5. zipkin](#35-zipkin)
 
 <!-- /TOC -->
 
@@ -53,12 +62,12 @@ export DOCKER_HOST="tcp://docker.host:2375"
 
 1. [docker安装](https://docs.docker.com/engine/install/)
 2. [docker-compose安装](https://docs.docker.com/compose/install/#install-compose)
-### 阿里云镜像加速
+### 1.2.2. 阿里云镜像加速
 
 阿里云开通``容器镜像服务``按照[镜像加速器](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors)进行配置就可以了
 
 
-### 1.2.2. 开启远程端口
+### 1.2.3. 开启远程端口
 这里使用CentOS进行演示
 
 ```shell
@@ -97,7 +106,7 @@ curl http://127.0.0.1:2375/info
 3. jib-maven-plugin 没有用过
 
 
-## spring-boot-maven-plugin 使用
+## 2.1. spring-boot-maven-plugin 使用
 
 ```xml
             <plugin>
@@ -128,7 +137,7 @@ curl http://127.0.0.1:2375/info
             </plugin>
 ```
 
-## dockerfile-maven-plugin
+## 2.2. dockerfile-maven-plugin
 
 使用远程docker服务,需要本地配置环境变量哦
 
@@ -180,3 +189,115 @@ ENTRYPOINT ["java", "-jar", "/usr/local/app.jar"]
 ```
 
 好了,这样子就结束了, 
+
+
+# 3. 常用中间件部署
+
+## 3.1. redis
+
+```shell
+# redis
+docker run --name ${name} --restart=always -itd \
+-p 6379:6379 \
+redis:alpine
+```
+
+
+## 3.2. nacos
+
+```shell
+# nacos 单机
+docker run --name ${name} --restart=always -itd \
+-p 8848:8848 \
+-e MODE=standalone \
+nacos/nacos-server
+```
+
+
+## 3.3. mysql
+
+```shell
+
+# mysql 简单
+docker run --name ${name} --restart=always -itd \
+-p 3306:3306 \
+-e MYSQL_ROOT_PASSWORD=${password} \
+mysql:5.7.37-debian \
+--character-set-server=utf8mb4 \
+--collation-server=utf8mb4_unicode_ci
+
+# mysql 持久化
+# 配置目录 -v /etc/mysql:/etc/mysql/conf.d
+# 数据目录 -v /var/lib/mysql:/var/lib/mysql
+# 日志目录 -v /log:/log 
+
+mkdir /etc/mysql /var/lib/mysql /log  
+
+docker run --name ${name} --restart=always -itd \
+-p 3306:3306 \
+-v /etc/mysql:/etc/mysql/conf.d \
+-v /var/lib/mysql:/var/lib/mysql \
+-v /log:/log \
+-e MYSQL_ROOT_PASSWORD=${password} \
+mysql:5.7.37-debian \
+--character-set-server=utf8mb4 \
+--collation-server=utf8mb4_unicode_ci
+```
+
+## 3.4. rocketmq
+
+
+```shell
+mkdir /home/namesrv/logs /home/broker/logs /home/rocketmq/store
+
+# Start nameserver
+docker run --name ${rmqnamesrv} --restart=always -itd \
+-v /home/namesrv/logs:/home/rocketmq/logs \
+-p 9876:9876 \
+apache/rocketmq:4.9.2 sh mqnamesrv \
+
+# Start Broker
+docker run --name ${rmqbroker} --restart=always -itd \
+--link ${rmqnamesrv}:namesrv \
+-p 10909:10909 \
+-p 10911:10911 \
+-p 10912:10912 \
+-v /home/broker/logs:/home/rocketmq/logs \
+-v /home/rocketmq/store:/home/rocketmq/store \
+-e "NAMESRV_ADDR=namesrv:9876" \
+apache/rocketmq:4.9.2 sh mqbroker \
+
+# rocketmq-dashboard
+docker run --name ${rocketmq-dashboard} --restart=always -itd \
+-e "JAVA_OPTS=-Drocketmq.namesrv.addr=127.0.0.1:9876" \
+-p 9877:8080 \
+apacherocketmq/rocketmq-dashboard:latest
+```
+
+
+## 3.5. zipkin
+
+```shell
+
+# 简单部署
+
+docker run --name ${zipkin} --restart=always -itd \
+-p 9411:9411 \
+openzipkin/zipkin:latest
+
+
+# 使用mysql
+docker run --name zipkin-server --restart=always -itd \
+-p 9411:9411 \
+-e MYSQL_USER=${username} \
+-e MYSQL_PASS=${password} \
+-e MYSQL_HOST=${host} \
+-e STORAGE_TYPE=mysql \
+-e MYSQL_DB=${database} \
+-e MYSQL_TCP_PORT=${port} \
+openzipkin/zipkin:latest
+
+# 使用es
+。。。
+
+```
