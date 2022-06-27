@@ -199,7 +199,8 @@ ENTRYPOINT ["java", "-jar", "/usr/local/app.jar"]
 # redis
 docker run --name ${name} --restart=always -itd \
 -p 6379:6379 \
-redis:alpine
+redis:alpine \
+--requirepass 123456
 ```
 
 
