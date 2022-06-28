@@ -17,6 +17,7 @@
   - [3.2. nacos](#32-nacos)
   - [3.3. mysql](#33-mysql)
   - [3.4. rocketmq  -- 不好用](#34-rocketmq-----不好用)
+  - [rabbitmq](#rabbitmq)
   - [3.5. zipkin](#35-zipkin)
 
 <!-- /TOC -->
@@ -275,6 +276,14 @@ docker run --name ${rocketmq-dashboard} --restart=always -itd \
 apacherocketmq/rocketmq-dashboard:latest
 ```
 
+## rabbitmq
+
+```shell
+docker run --name #{rabbitmq} --restart=always -itd \
+-p 5672:5672 \
+-p 15672:15672 \
+rabbitmq:3.9-management-alpine
+```
 
 ## 3.5. zipkin
 
