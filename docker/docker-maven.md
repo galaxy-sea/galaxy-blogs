@@ -18,6 +18,7 @@
   - [3.3. mysql](#33-mysql)
   - [3.4. rocketmq  -- 不好用](#34-rocketmq-----不好用)
   - [rabbitmq](#rabbitmq)
+  - [seata](#seata)
   - [3.5. zipkin](#35-zipkin)
 
 <!-- /TOC -->
@@ -284,6 +285,17 @@ docker run --name #{rabbitmq} --restart=always -itd \
 -p 15672:15672 \
 rabbitmq:3.9-management-alpine
 ```
+
+## seata
+```shell
+docker run --name #{seata-server} --restart=always -itd \
+-p 8091:8091 \
+-p 7091:7091 \
+-e SEATA_IP=#{ip} \
+-e SEATA_PORT=8091 \
+seataio/seata-server:1.5.1
+```
+
 
 ## 3.5. zipkin
 
