@@ -16,7 +16,7 @@
   - [3.1. redis](#31-redis)
   - [3.2. nacos](#32-nacos)
   - [3.3. mysql](#33-mysql)
-  - [3.4. rocketmq](#34-rocketmq)
+  - [3.4. rocketmq  -- 不好用](#34-rocketmq-----不好用)
   - [3.5. zipkin](#35-zipkin)
 
 <!-- /TOC -->
@@ -200,7 +200,7 @@ ENTRYPOINT ["java", "-jar", "/usr/local/app.jar"]
 docker run --name ${name} --restart=always -itd \
 -p 6379:6379 \
 redis:alpine \
---requirepass 123456
+--requirepass password
 ```
 
 
@@ -245,7 +245,7 @@ mysql:5.7.37-debian \
 --collation-server=utf8mb4_unicode_ci
 ```
 
-## 3.4. rocketmq
+## 3.4. rocketmq  -- 不好用
 
 
 ```shell
