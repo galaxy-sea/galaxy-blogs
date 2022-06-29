@@ -64,6 +64,7 @@ export DOCKER_HOST="tcp://docker.host:2375"
 
 1. [docker安装](https://docs.docker.com/engine/install/)
 2. [docker-compose安装](https://docs.docker.com/compose/install/#install-compose)
+3. https://blog.csdn.net/weixin_42988176/article/details/124963314
 ### 1.2.2. 阿里云镜像加速
 
 阿里云开通``容器镜像服务``按照[镜像加速器](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors)进行配置就可以了
