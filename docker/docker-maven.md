@@ -20,6 +20,7 @@
   - [rabbitmq](#rabbitmq)
   - [seata](#seata)
   - [3.5. zipkin](#35-zipkin)
+  - [neo4j](#neo4j)
 
 <!-- /TOC -->
 
@@ -323,4 +324,13 @@ openzipkin/zipkin:latest
 # 使用es
 。。。
 
+```
+
+## neo4j
+```
+docker run --name neo4j --restart=always -itd \
+--publish=7474:7474 \
+--publish=7687:7687 \
+-e 'NEO4J_AUTH=neo4j/secret' \
+neo4j:4.4.8
 ```
