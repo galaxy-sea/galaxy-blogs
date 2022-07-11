@@ -10,7 +10,7 @@
 
 Obtain_IP_ident="curl -s myip.ipip.net/s"
 Obtain_IP_myip="curl -s ip.3322.net"
-Old_LocalIP="192.168.0.1"
+Old_LocalIP=$(head -n +1 /root/Old_LocalIP.txt)
 
 # 第一次检查IP
 New_LocalIP=`${Obtain_IP_ident}`
@@ -21,7 +21,8 @@ then
     if [ "${check_ip}" == "${New_LocalIP}" ]
     then
         Old_LocalIP=${New_LocalIP}
-        aliyun alidns UpdateDomainRecord --region cn-hangzhou --RecordId 770712821778851840 --RR *.nuc8i7 --Type A --Value "${New_LocalIP}"
-            echo "${New_LocalIP}" | mail -s "nuc8i7 ip change" 469753862@qq.com
+        /usr/local/bin/aliyun alidns UpdateDomainRecord --region cn-hangzhou --RecordId 770712821778851840 --RR *.nuc8i7 --Type A --Value "${New_LocalIP}"
+        echo "${New_LocalIP}" | mail -s "nuc8i7 ip change" 469753862@qq.com
     fi
 fi
+echo "${New_LocalIP}" > /root/Old_LocalIP.txt
