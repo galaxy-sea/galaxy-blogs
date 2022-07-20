@@ -17,10 +17,10 @@
   - [3.2. nacos](#32-nacos)
   - [3.3. mysql](#33-mysql)
   - [3.4. rocketmq  -- 不好用](#34-rocketmq-----不好用)
-  - [rabbitmq](#rabbitmq)
-  - [seata](#seata)
-  - [3.5. zipkin](#35-zipkin)
-  - [neo4j](#neo4j)
+  - [3.5. rabbitmq](#35-rabbitmq)
+  - [3.6. seata](#36-seata)
+  - [3.7. zipkin](#37-zipkin)
+  - [3.8. neo4j](#38-neo4j)
 
 <!-- /TOC -->
 
@@ -204,7 +204,7 @@ ENTRYPOINT ["java", "-jar", "/usr/local/app.jar"]
 docker run --name ${name} --restart=always -itd \
 -p 6379:6379 \
 redis:alpine \
---requirepass password
+--requirepass ${password}
 ```
 
 
@@ -279,7 +279,7 @@ docker run --name ${rocketmq-dashboard} --restart=always -itd \
 apacherocketmq/rocketmq-dashboard:latest
 ```
 
-## rabbitmq
+## 3.5. rabbitmq
 
 ```shell
 docker run --name #{rabbitmq} --restart=always -itd \
@@ -288,7 +288,7 @@ docker run --name #{rabbitmq} --restart=always -itd \
 rabbitmq:3.9-management-alpine
 ```
 
-## seata
+## 3.6. seata
 ```shell
 docker run --name #{seata-server} --restart=always -itd \
 -p 8091:8091 \
@@ -299,7 +299,7 @@ seataio/seata-server:1.5.1
 ```
 
 
-## 3.5. zipkin
+## 3.7. zipkin
 
 ```shell
 
@@ -326,7 +326,7 @@ openzipkin/zipkin:latest
 
 ```
 
-## neo4j
+## 3.8. neo4j
 ```
 docker run --name neo4j --restart=always -itd \
 --publish=7474:7474 \
