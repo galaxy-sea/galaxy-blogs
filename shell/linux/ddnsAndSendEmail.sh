@@ -28,7 +28,7 @@ then
         # echo "${New_LocalIP}" | mail -s "nuc8i7 ip change" 469753862@qq.com
 
         # ubuntu send mail
-        echo "${New_LocalIP}" | s-nail -s "nuc8i7 ip change" 469753862@qq.com
+        echo "${New_LocalIP}" | s-nail -r "nuc8i7 <2468080401@qq.com>" -s "nuc8i7 ip change" 469753862@qq.com
         
         # write ip
         echo "${New_LocalIP}" > /home/changjinwei/Old_LocalIP.txt

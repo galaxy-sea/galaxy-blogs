@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>phrase</key>
+		<string>Elasticsearch</string>
+		<key>shortcut</key>
+		<string>es</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>MongoDB</string>
+		<key>shortcut</key>
+		<string>mongo</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Spring Boot</string>
+		<key>shortcut</key>
+		<string>sb</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Spring Cloud</string>
+		<key>shortcut</key>
+		<string>sc</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Spring Cloud Alibaba</string>
+		<key>shortcut</key>
+		<string>sca</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Spring Cloud OpenFeign</string>
+		<key>shortcut</key>
+		<string>scf</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Spring Cloud Gateway</string>
+		<key>shortcut</key>
+		<string>scg</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Spring Cloud OpenFeign</string>
+		<key>shortcut</key>
+		<string>sco</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Spring Cloud Stream</string>
+		<key>shortcut</key>
+		<string>scs</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Spring Data</string>
+		<key>shortcut</key>
+		<string>sd</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Spring Framework</string>
+		<key>shortcut</key>
+		<string>sf</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Spring Session</string>
+		<key>shortcut</key>
+		<string>ss</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Spring Security</string>
+		<key>shortcut</key>
+		<string>ss</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Zookeeper</string>
+		<key>shortcut</key>
+		<string>zk</string>
+	</dict>
+</array>
+</plist>
