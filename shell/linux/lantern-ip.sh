@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ubuntu
-cp ~/.lantern/settings.yaml ~/.lantern/settings.yaml.bak
+# cp ~/.lantern/settings.yaml ~/.lantern/settings.yaml.bak
 
 # mac
 # cp ~/Library/Application\ Support/Lantern/settings.yaml ~/Library/Application\ Support/Lantern/settings.yaml.bak
