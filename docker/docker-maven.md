@@ -21,6 +21,7 @@
   - [3.6. seata](#36-seata)
   - [3.7. zipkin](#37-zipkin)
   - [3.8. neo4j](#38-neo4j)
+  - [3.8. polarismesh](#38-polarismesh)
 
 <!-- /TOC -->
 
@@ -333,4 +334,19 @@ docker run --name neo4j --restart=always -itd \
 --publish=7687:7687 \
 -e 'NEO4J_AUTH=neo4j/secret' \
 neo4j:4.4.8
+```
+
+
+## 3.8. polarismesh
+```
+docker run --name polaris --restart=always  -itd \
+-p 15010:15010 \
+-p 8080:8080 \
+-p 8090:8090 \
+-p 8091:8091 \
+-p 8093:8093 \
+-p 8761:8761 \
+-p 9000:9000 \
+-p 9090:9090 \
+polarismesh/polaris-server-standalone:latest
 ```
