@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 
-find ~/**/target -name "*.jar" -exec rm -rf {} \;
+find ~/ -path "*/target/*.jar" -exec rm -rf {} \;
