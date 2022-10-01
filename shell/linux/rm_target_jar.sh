@@ -1,3 +1,3 @@
 #!/bin/sh
 
-find ~/ -path "*/target/*.jar" -exec rm -rf {} \;
+find ~/my-workbench -path "*/target/*.jar" -exec rm -rf {} \;
