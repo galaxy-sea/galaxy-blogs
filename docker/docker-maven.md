@@ -22,6 +22,7 @@
   - [3.7. zipkin](#37-zipkin)
   - [3.8. neo4j](#38-neo4j)
   - [3.8. polarismesh](#38-polarismesh)
+- [mqtt](#mqtt)
 
 <!-- /TOC -->
 
@@ -213,8 +214,10 @@ redis:alpine \
 
 ```shell
 # nacos 单机
-docker run --name ${name} --restart=always -itd \
+docker run --name nacos --restart=always -itd \
 -p 8848:8848 \
+-p 9848:9848 \
+-p 9849:9849 \
 -e MODE=standalone \
 nacos/nacos-server
 ```
@@ -350,3 +353,19 @@ docker run --name polaris --restart=always  -itd \
 -p 9090:9090 \
 polarismesh/polaris-server-standalone:latest
 ```
+
+
+# mqtt
+```
+docker run --name emqx --restart=always -itd \
+-p 1883:1883 \
+-p 8081:8081 \
+-p 8083:8083 \
+-p 8084:8084 \
+-p 8883:8883 \
+-p 18083:18083 \
+emqx:4.4.4
+```
+
+
+
