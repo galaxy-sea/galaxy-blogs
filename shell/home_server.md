@@ -22,6 +22,7 @@
 | ^                         | neo4j-web              | 7474:7474:7474         | ^                |
 | ^                         | mysql5.7               | 3306:3306:3306         | root:weichangjin |
 | ^                         | ~~mysql8.0~~           | ~~3308::~~             | -                |
+| ^                         | mongodb                | 27017:27017:27017      | admin:123456     |
 | mq                        | reabbitmq              | 5672:5672:5672         | guest:guest      |
 | ^                         | reabbitmq-web          | 15672:15672:15672      | ^                |
 | 阿里系                    | seata                  | 8791:8791:8791         | -                |
