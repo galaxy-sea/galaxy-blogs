@@ -34,6 +34,7 @@ import java.util.List;
 public class AbacService {
     private final AbacDao abacDao;
 
+    /** 获取abac表达式详细信息列表 */
     public List<Abac> getAll() {
         List<Abac> abacs = abacDao.selectList(null);
         for (Abac abac : abacs) {

@@ -30,6 +30,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author changjin wei(魏昌进)
+ * @since 2022/11/26
+ */
 @SpringBootTest
 class AbacApplicationTests {
 
@@ -42,6 +46,7 @@ class AbacApplicationTests {
     @Autowired
     private SecurityContext securityContext;
 
+    /** 获取不同用户的abac权限 */
     @Test
     void testRbac() {
         User user = userService.get(1L);
@@ -61,7 +66,9 @@ class AbacApplicationTests {
 
     }
 
-
+    /**
+     * 获取自定义权限
+     */
     @Test
     void testMetadataCustomizer() {
         User user = userService.get(1L);
@@ -74,10 +81,10 @@ class AbacApplicationTests {
         System.out.println(permissions);
     }
 
+    /** 模拟网络ip */
     private List<MetadataCustomizer> getMetadataCustomizer() {
         return new ArrayList<MetadataCustomizer>() {{
             add(user -> user.getMetadata().put("ip", "192.168.0.1"));
         }};
     }
-
 }

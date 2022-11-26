@@ -34,9 +34,10 @@ import java.util.List;
 public class UserService {
     private final UserDao userDao;
 
-    public User get(Long id) {
-        User user = userDao.selectById(id);
-        List<String> repository = userDao.selectRepository(id);
+    /** 根据userId获取用户详细信息 */
+    public User get(Long userId) {
+        User user = userDao.selectById(userId);
+        List<String> repository = userDao.selectRepository(userId);
         user.setContributions(repository);
         return user;
     }

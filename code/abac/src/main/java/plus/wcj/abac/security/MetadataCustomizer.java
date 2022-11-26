@@ -19,6 +19,8 @@ package plus.wcj.abac.security;
 import plus.wcj.abac.entity.User;
 
 /**
+ * 自定义用户元数据  用于获取一些实体的属性、操作类型、相关的环境
+ *
  * @author changjin wei(魏昌进)
  * @since 2022/11/26
  */
