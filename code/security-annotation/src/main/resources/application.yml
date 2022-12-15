@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: security-annotation
+security:
+  ignoring:
+    get:
+      - /hello/{path}/properties
