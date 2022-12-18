@@ -5,3 +5,4 @@ security:
   ignoring:
     get:
       - /hello/{path}/properties
+      - /hello/properties
