@@ -16,20 +16,25 @@
 
 package plus.wcj.security.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author changjin wei(魏昌进)
- * @since 2022/1/3
+ * @since 2022/12/20
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-@Inherited
-@Documented
-public @interface IgnoreWebSecurity {
+
+@IgnoreWebSecurity
+
+@RestController
+@RequestMapping("hello")
+public class ClassAnnController {
+
+    @GetMapping("/ann")
+    public String ann(){
+        return "hello, class IgnoreWebSecurity";
+    }
+
 }
