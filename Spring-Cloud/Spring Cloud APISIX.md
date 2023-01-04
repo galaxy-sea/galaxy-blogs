@@ -19,9 +19,8 @@ Java因为众所周知的IO性能问题导致其高并发环境下极其的拉�
 
 前期为了将Apache APISIX融入Spring Cloud中我们采用discovery插件将注册中心同步到Apache APISIX中, 同步注册中心也是大部分团队所采用的方式。
 
-```Mermaid
+```mermaid
 flowchart BT
-
     client --3.request--> ApacheAPISIX --4.request--> services
     services --1.register--> discovery
     discovery --2.sync--> ApacheAPISIX
@@ -95,7 +94,7 @@ Spring Cloud APISIX在未来的规划中我们不会过多对Spring Cloud进行�
 
 关于S2S(Svice to Svice)和S2G2S(Svice to Gateway to Svice)的问题，目前因为[/healthcheck/upstreams/{id}](https://apisix.apache.org/docs/apisix/control-api/#get-v1upstreamupstream_id)的玄学（BUG）问题，导致S2S调用时偶尔会出现[issue#7964](https://github.com/apache/apisix/issues/7964) [issues#7141](https://github.com/apache/apisix/issues/7141)中所描述的场景，Spring Cloud APISIX目前推荐使用S2G2S进行RPC调用。
 
-```Mermaid
+```mermaid
 flowchart 
     subgraph S2G2S
         subgraph ApacheAPISIXs
