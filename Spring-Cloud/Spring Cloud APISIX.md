@@ -4,7 +4,7 @@
 - [Apache APISIX初体验](#apache-apisix初体验)
 - [Spring Cloud APISIX的由来](#spring-cloud-apisix的由来)
 - [Spring Cloud APISIX介绍](#spring-cloud-apisix介绍)
-- [Spring Cloud APISIX实践](#spring-cloud-apisix实践)
+- [后言](#后言)
 
 <!-- /TOC -->
 
@@ -22,9 +22,9 @@ Java因为众所周知的IO性能问题导致其高并发环境下极其的拉�
 ```Mermaid
 flowchart BT
 
-    client --request--> ApacheAPISIX --request--> services
-    services --register--> discovery
-    discovery --sync--> ApacheAPISIX
+    client --3.request--> ApacheAPISIX --4.request--> services
+    services --1.register--> discovery
+    discovery --2.sync--> ApacheAPISIX
     subgraph services
      direction TB
      Instance1
@@ -35,11 +35,11 @@ flowchart BT
 
 # Spring Cloud APISIX的由来
 
-孵化Spring Cloud APISIX的想法源于22年国庆前一天的带薪聊天和一个issue，聊天记录和issue如下
+孵化Spring Cloud APISIX的起因源于22年国庆前一天的带薪聊天。
 
-[apisix/issues#8026](https://github.com/apache/apisix/issues/8026)
 ![聊天记录](./images/img1.JPG)
 
+如此新颖的想法在Spring Cloud生态并不是主流，为能让想法成功落地国庆期间在家中闷头编写Spring Cloud APISIX，利用7天的假期成功的完成了Spring Cloud APISIX的注册中心、服务发现、负载均衡三个核心功能后续经过3周的测试运行成功的在11月份正式开源了Spring Cloud APISIX源代码。
 
 Spring Cloud APISIX的设计是让Apache APISIX即是注册中心又是网关，通过Apache APISIX核心的3个核心/组件（Route、Upstream、Admin API）搭配而实现。
 
@@ -63,7 +63,6 @@ flowchart TD
     Route200 --no--> registerFail([register fail])
 ```
 
-如此新颖的想法在Spring Cloud生态是前所未闻，为能让想法成功落地国庆期间在家中闷头编写Spring Cloud APISIX，利用7天的假期成功的完成了Spring Cloud APISIX的注册中心、服务发现、负载均衡三个核心功能后续经过3周的测试运行成功的在11月份正式开源了Spring Cloud APISIX源代码。
 
 
 
@@ -94,78 +93,43 @@ Spring Cloud APISIX在未来的规划中我们不会过多对Spring Cloud进行�
 | 配置中心       | -                      |
 
 
-
-# Spring Cloud APISIX实践
-
-
-目前正在使用东西向流量/南北向流量两套方案在实践在公司内部不同的项目中。
+关于S2S(Svice to Svice)和S2G2S(Svice to Gateway to Svice)的问题，目前因为[/healthcheck/upstreams/{id}](https://apisix.apache.org/docs/apisix/control-api/#get-v1upstreamupstream_id)的玄学（BUG）问题，导致S2S调用时偶尔会出现[issue#7964](https://github.com/apache/apisix/issues/7964) [issues#7141](https://github.com/apache/apisix/issues/7141)中所描述的场景，Spring Cloud APISIX目前推荐使用S2G2S进行RPC调用。
 
 ```Mermaid
 flowchart 
-    东西向流量
-    南北向流量
-
-    subgraph IOT-PaaS
-        direction RL
-        报警平台
-        设备平台
-        用户平台
-    end
-    
-    subgraph 东西向流量
-        ApacheAPISIX1(ApacheAPISIX)
-        direction RL
-        IOT-PaaS
+    subgraph S2G2S
+        subgraph ApacheAPISIXs
+            ApacheAPISIX1(ApacheAPISIX inner)
+            ApacheAPISIX2(ApacheAPISIX outer)
+        end
         client1(client)
+        consumer1(consumer)
+        Provider1(Provider)
     end
+    Provider1 --1.register--> ApacheAPISIXs
+    client1 --3.request--> ApacheAPISIX2
+    consumer1 --3.request--> ApacheAPISIX1
+    ApacheAPISIX2 --4.request--> Provider1
+    ApacheAPISIX1 --4.request--> Provider1
     
-    IOT-PaaS ==register==> ApacheAPISIX1
-    client1 --request--> ApacheAPISIX1
-    用户平台 --request--> ApacheAPISIX1
-    ApacheAPISIX1 --request--> 设备平台
-
-
-    
-    subgraph 南北向流量
-        direction RL
+    subgraph S2S
         client2(client)
-        Instance6
-        Instance7
+        ApacheAPISIX3(ApacheAPISIX)
+        consumer2(consumer)
+        Provider2(Provider)
     end
+
+    client2 --3.request--> ApacheAPISIX3
+    Provider2 --1.register--> ApacheAPISIX3
+    consumer2 --2.subscribe--> ApacheAPISIX3
+    consumer2 --3.request--> Provider2
+    ApacheAPISIX3 --4.request--> Provider2
 
 ```
 
 
-client --request--> ApacheAPISIX --request--> services
-    services --register--> discovery
-    discovery --sync--> ApacheAPISIX
-    subgraph services
-     direction TB
-     Instance1
-     Instance2
-     Instance3
-    end
+# 后言
 
+> 1. 聊天的中的[apisix/issues#8026](https://github.com/apache/apisix/issues/8026)让我有点吃醋了，当时内心的真实想法就是“他为啥issue中只字不提我最喜欢的Spring Cloud，很生气，很无奈，那么我必须要做点什么让这个issue上出现Spring Cloud的字眼”。回想我在编写Spring Cloud APISIX时他每天打电话询问我进度如何现在想想我明白了，我被他钓鱼了。
 
-
-
-
-
-
-
-
-
-> 有关为何不在maven中央仓库发行的问题，Spring Cloud APISIX获取健康的ServiceInstances是通过[/healthcheck/upstreams/{id}](https://apisix.apache.org/docs/apisix/control-api/#get-v1upstreamupstream_id)来实现的，该这个API十分的玄学（BUG）会出现 [issue#7964](https://github.com/apache/apisix/issues/7964) [issues#7141](https://github.com/apache/apisix/issues/7141)中所描述的场景，受限于该API的玄学导致我迟迟不敢正式对外发布。
-
-
-
-
-
-
-
-
-
-
-
-
-
+> 2. 为何不在maven中央仓库发行，Spring Cloud APISIX获取健康的ServiceInstances是通过[/healthcheck/upstreams/{id}](https://apisix.apache.org/docs/apisix/control-api/#get-v1upstreamupstream_id)来实现的，该这个API十分的玄学（BUG）会出现 [issue#7964](https://github.com/apache/apisix/issues/7964) [issues#7141](https://github.com/apache/apisix/issues/7141)中所描述的场景，受限于该API的玄学导致我迟迟不敢正式对外发布。
