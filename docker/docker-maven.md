@@ -22,7 +22,8 @@
   - [3.7. zipkin](#37-zipkin)
   - [3.8. neo4j](#38-neo4j)
   - [3.8. polarismesh](#38-polarismesh)
-- [mqtt](#mqtt)
+  - [mqtt](#mqtt)
+  - [minio](#minio)
 
 <!-- /TOC -->
 
@@ -355,7 +356,7 @@ polarismesh/polaris-server-standalone:latest
 ```
 
 
-# mqtt
+## mqtt
 ```
 docker run --name emqx --restart=always -itd \
 -p 1883:1883 \
@@ -366,6 +367,14 @@ docker run --name emqx --restart=always -itd \
 -p 18083:18083 \
 emqx:4.4.4
 ```
+## minio
+```
+docker run --name minio --restart=always -itd \
+-p 9000:9000 \
+-p 9001:9001 \
+minio/minio server /data --console-address ":9001"
+```
+
 
 
 
