@@ -1,5 +1,6 @@
 package com.galaxy.result;
 
+import com.galaxy.result.exception.IResultStatus;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.lang.annotation.Documented;
@@ -20,5 +21,11 @@ import java.lang.annotation.Target;
 @Documented
 @ResponseBody
 public @interface ResponseResultBody {
+    /*
+     * todo 善于利用 注解可以实现元数据的解析
+     *
+     */
+
+    String message() default "OK";
 
 }

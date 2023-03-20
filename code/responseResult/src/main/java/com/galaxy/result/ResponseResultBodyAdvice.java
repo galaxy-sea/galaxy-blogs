@@ -1,6 +1,8 @@
 package com.galaxy.result;
 
+import com.galaxy.result.exception.IResultStatus;
 import com.galaxy.result.exception.ResultException;
+import com.galaxy.result.exception.ResultStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -9,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import org.springframework.web.util.WebUtils;
-
-import java.lang.annotation.Annotation;
 
 /**
  * 当类和方法使用了@ResponseResultBody,  放接口的返回进行统一处理
@@ -33,7 +32,7 @@ import java.lang.annotation.Annotation;
 // @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
 
-    private static final Class<? extends Annotation> ANNOTATION_TYPE = ResponseResultBody.class;
+    private static final Class<ResponseResultBody> ANNOTATION_TYPE = ResponseResultBody.class;
 
     // @Autowired
     // private ObjectMapper objectMapper;
@@ -47,22 +46,42 @@ public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
     /** 当类或者方法使用了 @ResponseResultBody 就会调用这个方法 */
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        return convert(convert(body), selectedConverterType);
+        ResponseResultBody mergedAnnotation = AnnotatedElementUtils.getMergedAnnotation(returnType.getContainingClass(), ANNOTATION_TYPE);
+        return convert(body, mergedAnnotation);
     }
 
-    private Result<?> convert(Object body) {
+    private Result<?> convert(Object body, ResponseResultBody mergedAnnotation) {
         if (body instanceof Result) {
             return (Result<?>) body;
         }
-        return Result.success(body);
+        if ("OK".equals(mergedAnnotation.message())) {
+            return Result.success(body);
+        }
+        return Result.success(new IResultStatus() {
+            @Override
+            public HttpStatus getHttpStatus() {
+                return HttpStatus.OK;
+            }
+
+            @Override
+            public Integer getCode() {
+                return 200;
+            }
+
+            @Override
+            public String getMessage() {
+                return mergedAnnotation.message();
+            }
+        }, body);
+
     }
 
-    private Object convert(Result<?> result, Class<? extends HttpMessageConverter<?>> selectedConverterType) {
-        if (selectedConverterType == StringHttpMessageConverter.class && result.getData() instanceof String) {
-            return "{\"code\":\"" + result.getCode() + "\",\"message\":\"" + result.getMessage() + "\",\"data\":\"" + result.getData() + "\"}";
-        }
-        return result;
-    }
+//    private Object convert(Result<?> result, Class<? extends HttpMessageConverter<?>> selectedConverterType) {
+//        if (selectedConverterType == StringHttpMessageConverter.class && result.getData() instanceof String) {
+//            return "{\"code\":\"" + result.getCode() + "\",\"message\":\"" + result.getMessage() + "\",\"data\":\"" + result.getData() + "\"}";
+//        }
+//        return result;
+//    }
 
 
     /**

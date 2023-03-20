@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
  */
 @ToString
 @Getter
-public enum ResultStatus {
+public enum ResultStatus implements IResultStatus {
 
     SUCCESS(HttpStatus.OK, 200, "OK"),
     BAD_REQUEST(HttpStatus.BAD_REQUEST, 400, "Bad Request"),
