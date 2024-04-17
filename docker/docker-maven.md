@@ -219,10 +219,16 @@ docker run --name nacos --restart=always -itd \
 -p 8848:8848 \
 -p 9848:9848 \
 -p 9849:9849 \
+-p 7848:7848 \
 -e MODE=standalone \
-nacos/nacos-server
+-e PREFER_HOST_MODE=hostname \
+-e NACOS_AUTH_ENABLE=true \
+-e NACOS_AUTH_IDENTITY_KEY=nacos \
+-e NACOS_AUTH_IDENTITY_VALUE=nacos \
+-e NACOS_AUTH_TOKEN=SecretKey012345678901234567890123456789012345678901234567890123456789 \
+nacos/nacos-server:v2.2.1-slim
 ```
-
+docker pull nacos/nacos-server:v2.2.1-slim
 
 ## 3.3. mysql
 
