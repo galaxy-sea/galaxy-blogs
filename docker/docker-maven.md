@@ -24,6 +24,7 @@
   - [3.8. polarismesh](#38-polarismesh)
   - [mqtt](#mqtt)
   - [minio](#minio)
+  - [postgres](#postgres)
 
 <!-- /TOC -->
 
@@ -382,5 +383,11 @@ minio/minio server /data --console-address ":9001"
 ```
 
 
-
+## postgres
+``` 
+docker run --name some-postgres --restart=always -itd \
+-e POSTGRES_PASSWORD=weichangjin \
+-p 5432:5432 \
+postgres
+```
 
