@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-DROP TABLE if EXISTS user;
-CREATE TABLE user (
-    id bigint(20) NOT NULL COMMENT '主键ID',
+DROP TABLE if EXISTS `user`;
+CREATE TABLE `user` (
+    id bigint NOT NULL COMMENT '主键ID',
     name varchar(30) NULL DEFAULT NULL COMMENT '姓名',
-    age int(11) NULL DEFAULT NULL COMMENT '年龄',
+    age int NULL DEFAULT NULL COMMENT '年龄',
     email varchar(50) NULL DEFAULT NULL COMMENT '邮箱',
     PRIMARY KEY (id)
 );
 
 DROP TABLE if EXISTS user_contribution;
 CREATE TABLE user_contribution (
-    id bigint(20) NOT NULL COMMENT '主键ID',
-    user_id bigint(20)  NOT NULL COMMENT '用户表ID',
+    id bigint NOT NULL COMMENT '主键ID',
+    user_id bigint  NOT NULL COMMENT '用户表ID',
     repository varchar(100) NOT NULL COMMENT '仓库',
     PRIMARY KEY (id)
 );
@@ -34,14 +34,14 @@ CREATE TABLE user_contribution (
 
 DROP TABLE if EXISTS permission;
 CREATE TABLE permission (
-    id bigint(20) NOT NULL COMMENT '主键ID',
+    id bigint NOT NULL COMMENT '主键ID',
     permission varchar(100) NOT NULL COMMENT '权限名称',
     PRIMARY KEY (id)
 );
 
 DROP TABLE if EXISTS abac;
 CREATE TABLE abac (
-    id bigint(20) NOT NULL COMMENT '主键ID',
+    id bigint NOT NULL COMMENT '主键ID',
     expression varchar(100) NOT NULL COMMENT 'abac表达式',
     PRIMARY KEY (id)
 );
@@ -49,8 +49,8 @@ CREATE TABLE abac (
 
 DROP TABLE if EXISTS abac_permission;
 CREATE TABLE abac_permission (
-    id bigint(20) NOT NULL COMMENT '主键ID',
-    abac_id bigint(20) NOT NULL COMMENT 'abac表ID',
-    permission_id bigint(20) NOT NULL COMMENT 'permission表ID',
+    id bigint NOT NULL COMMENT '主键ID',
+    abac_id bigint NOT NULL COMMENT 'abac表ID',
+    permission_id bigint NOT NULL COMMENT 'permission表ID',
     PRIMARY KEY (id)
 );

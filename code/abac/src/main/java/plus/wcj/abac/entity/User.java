@@ -18,6 +18,7 @@ package plus.wcj.abac.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import java.util.Map;
  * @since 2022/11/26
  */
 @Data
+@TableName("`user`")
 public class User {
     private Long id;
     private String name;

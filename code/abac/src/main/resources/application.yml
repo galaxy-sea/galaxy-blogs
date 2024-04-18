@@ -1,7 +1,10 @@
 # DataSource Config
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://nuc8i7.wcj.plus:3306/abac?useruseUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    driver-class-name: org.h2.Driver
     username: root
     password: weichangjin
+  sql:
+    init:
+      schema-locations: classpath:db/schema-h2.sql
+      data-locations: classpath:db/data-h2.sql
