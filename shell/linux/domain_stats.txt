@@ -1,0 +1,41 @@
+[SwitchyOmega Conditions]
+@with result
+
+@note 9999999
+*.openai.com +ChatGPT FlClash proxy
+@note 9999999
+*.chatgpt.com +ChatGPT FlClash proxy
+@note 1255
+*.google.com +Free Clash Verge proxy
+@note 483
+*.github.com +Free Clash Verge proxy
+@note 55
+*.googleapis.com +Free Clash Verge proxy
+@note 44
+*.whatpulse.org +Free Clash Verge proxy
+@note 36
+*.gstatic.com +Free Clash Verge proxy
+@note 21
+*.apache.org +Free Clash Verge proxy
+@note 16
+*.githubusercontent.com +Free Clash Verge proxy
+@note 8
+*.githubassets.com +Free Clash Verge proxy
+@note 5
+*.cncf.io +Free Clash Verge proxy
+@note 4
+*.spring.io +Free Clash Verge proxy
+@note 4
+*.cloudflare.com +Free Clash Verge proxy
+@note 3
+*.googleusercontent.com +Free Clash Verge proxy
+@note 1
+*.ytimg.com +Free Clash Verge proxy
+@note 1
+*.youtube.com +Free Clash Verge proxy
+@note 1
+*.vertx.io +Free Clash Verge proxy
+@note 1
+*.github.io +Free Clash Verge proxy
+
+* +direct
