@@ -5,37 +5,57 @@
 *.openai.com +ChatGPT FlClash proxy
 @note 9999999
 *.chatgpt.com +ChatGPT FlClash proxy
-@note 2526
+@note 3322
 *.google.com +Free Clash Verge proxy
-@note 968
-*.github.com +Free Clash Verge proxy
-@note 110
+@note 1866
 *.googleapis.com +Free Clash Verge proxy
-@note 88
+@note 886
+*.github.com +Free Clash Verge proxy
+@note 255
 *.whatpulse.org +Free Clash Verge proxy
-@note 72
+@note 110
 *.gstatic.com +Free Clash Verge proxy
-@note 42
-*.apache.org +Free Clash Verge proxy
-@note 32
+@note 108
+*.youtube.com +Free Clash Verge proxy
+@note 94
 *.githubusercontent.com +Free Clash Verge proxy
-@note 16
+@note 39
+*.apache.org +Free Clash Verge proxy
+@note 33
+*.cloudflare.com +Free Clash Verge proxy
+@note 29
+*.googleusercontent.com +Free Clash Verge proxy
+@note 29
 *.githubassets.com +Free Clash Verge proxy
+@note 25
+*.wikimedia.org +Free Clash Verge proxy
+@note 23
+*.spring.io +Free Clash Verge proxy
+@note 15
+*.ytimg.com +Free Clash Verge proxy
+@note 13
+*.gitee.com +Free Clash Verge proxy
+@note 11
+*.github.io +Free Clash Verge proxy
+@note 10
+*.twimg.com +Free Clash Verge proxy
 @note 10
 *.cncf.io +Free Clash Verge proxy
-@note 9
-*.cloudflare.com +Free Clash Verge proxy
-@note 8
-*.spring.io +Free Clash Verge proxy
-@note 6
-*.googleusercontent.com +Free Clash Verge proxy
-@note 3
-*.github.io +Free Clash Verge proxy
-@note 2
-*.ytimg.com +Free Clash Verge proxy
-@note 2
-*.youtube.com +Free Clash Verge proxy
-@note 2
+@note 5
+*.mqttx.app +Free Clash Verge proxy
+@note 5
+*.linux.do +Free Clash Verge proxy
+@note 4
+*.x.com +Free Clash Verge proxy
+@note 4
+*.wikipedia.org +Free Clash Verge proxy
+@note 4
+*.ldstatic.com +Free Clash Verge proxy
+@note 4
+*.google.com.hk +Free Clash Verge proxy
+@note 1
 *.vertx.io +Free Clash Verge proxy
+@note 1
+*.twitter.com +Free Clash Verge proxy
 
 * +direct

@@ -7,22 +7,68 @@ temp_file="./domain_stats_new.txt"
 # 自动创建空文件
 [ -f "$output_file" ] || touch "$output_file"
 
-# Step 1: 生成新的统计数据
-find "$log_dir" -name "*.log" -print0 | xargs -0 awk '
+# 支持的后缀列表
+suffixes=(
+  "com"
+  "cn"
+  "com.hk"
+  "com.jp"
+)
+
+# Step 1: 提取域名并统计（带默认逻辑）
+find "$log_dir" -name "*.log" -print0 | xargs -0 awk -v suffix_list="$(IFS=,; echo "${suffixes[*]}")" '
+  BEGIN {
+    n = split(suffix_list, raw_suffixes, ",")
+    for (i = 1; i <= n; i++) {
+      suffixes[i] = raw_suffixes[i]
+    }
+  }
+
   {
     for (i = 1; i <= NF; i++) {
       if ($i == "-->") {
         split($(i+1), hp, ":")
         host = hp[1]
         split(host, parts, ".")
-        n = length(parts)
-        if (n >= 2) {
-          domain = parts[n-1] "." parts[n]
+        plen = length(parts)
+        matched = 0
+
+        # 尝试匹配最长后缀
+        for (j = 1; j <= length(suffixes); j++) {
+          split(suffixes[j], sfx_parts, ".")
+          sfx_len = length(sfx_parts)
+
+          if (plen >= sfx_len + 1) {
+            found = 1
+            for (k = 0; k < sfx_len; k++) {
+              if (parts[plen - k] != sfx_parts[sfx_len - k]) {
+                found = 0
+                break
+              }
+            }
+
+            if (found) {
+              domain = parts[plen - sfx_len] "."
+              for (k = 1; k <= sfx_len; k++) {
+                domain = domain parts[plen - sfx_len + k]
+                if (k < sfx_len) domain = domain "."
+              }
+              freq[domain]++
+              matched = 1
+              break
+            }
+          }
+        }
+
+        # 未匹配任何已知后缀 → 使用默认规则：最后两段
+        if (!matched && plen >= 2) {
+          domain = parts[plen - 1] "." parts[plen]
           freq[domain]++
         }
       }
     }
   }
+
   END {
     freq["chatgpt.com"] = 9999999
     freq["openai.com"] = 9999999
@@ -39,28 +85,28 @@ find "$log_dir" -name "*.log" -print0 | xargs -0 awk '
   }
 ' > "$temp_file"
 
-# Step 2: 合并旧数据
+# Step 2: 合并旧数据（保留 chatgpt.com/openai.com 固定）
 awk '
   BEGIN {
     fixed["chatgpt.com"] = 1
     fixed["openai.com"] = 1
   }
 
-  # 旧数据
+  # 旧统计
   FILENAME == "'"$output_file"'" {
     if ($1 == "@note") {
       count = $2
       getline
-      split($1, parts, "\\.")
-      domain = parts[2] "." parts[3]
-      gsub(/^\*\./, "", domain)
+      domain_line = $0
+      domain = substr($1, 3)
+      comment = substr($0, index($0, $2))
       old_count[domain] = count
-      old_note[domain] = substr($0, index($0, parts[2]))
+      old_note[domain] = comment
     }
     next
   }
 
-  # 新数据
+  # 新统计
   FILENAME == "'"$temp_file"'" {
     domain = $1
     count = $2
@@ -97,7 +143,7 @@ awk '
   }
 ' "$output_file" "$temp_file" | sort -nr -k1,1 > "${output_file}.tmp"
 
-# Step 3: 写入完整格式，包括头部和尾部
+# Step 3: 格式化输出，加头尾
 {
   echo "[SwitchyOmega Conditions]"
   echo "@with result"
