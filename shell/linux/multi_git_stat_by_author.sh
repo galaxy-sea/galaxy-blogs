@@ -29,8 +29,8 @@ done
 # -----------------------------
 REPO_NAMES=("测试1" "测试2")
 REPO_PATHS=(
-  "/Users/changjinwei/my-workbench/my-github/m"
-  "/Users/changjinwei/my-workbench/my-github/b"
+  "/Users/changjinwei/my-workbench/my-github/mica-mqtt"
+  "/Users/changjinwei/my-workbench/my-github/mica-mqtt"
 )
 
 # -----------------------------
@@ -70,8 +70,8 @@ for i in "${!REPO_NAMES[@]}"; do
     continue
   fi
 
-  echo "### 📁 仓库: $repo_name"
-  echo "### 🕒 统计范围: 最近 $DAYS 天（排除合并提交）"
+  echo "### <font color=\"warning\">📁 仓库: $repo_name</font>"
+  echo "### <font color=\"warning\">🕒 统计范围: 最近 $DAYS 天（排除合并提交）</font>"
   echo "----------------------------------------"
 
   cd "$repo_path" || continue
@@ -100,7 +100,7 @@ for i in "${!REPO_NAMES[@]}"; do
 
   if [ ! -s "$TMP_FILE" ]; then
     echo "（无变更记录）"
-    echo ""
+    echo "\n"
     continue
   fi
 
@@ -127,7 +127,7 @@ for i in "${!REPO_NAMES[@]}"; do
     printf "%-4s %-12d %-8d %-8d %-8d\n" "$short_author" "$commit" "$add" "$del" "$total"
   done < "${TMP_FILE}_sorted"
 
-  echo ""
+  echo "\n"
 
   rm -f "$TMP_FILE" "${TMP_FILE}_sorted"
 done
