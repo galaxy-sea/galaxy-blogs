@@ -13,6 +13,8 @@ suffixes=(
   "cn"
   "com.hk"
   "com.jp"
+  "co.jp"
+  "com.cn"
 )
 
 # Step 1: 提取域名并统计（带默认逻辑）

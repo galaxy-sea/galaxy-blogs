@@ -5,57 +5,65 @@
 *.openai.com +ChatGPT FlClash proxy
 @note 9999999
 *.chatgpt.com +ChatGPT FlClash proxy
-@note 3322
+@note 2236
 *.google.com +Free Clash Verge proxy
-@note 1866
+@note 1920
 *.googleapis.com +Free Clash Verge proxy
-@note 886
+@note 648
 *.github.com +Free Clash Verge proxy
-@note 255
-*.whatpulse.org +Free Clash Verge proxy
-@note 110
-*.gstatic.com +Free Clash Verge proxy
-@note 108
+@note 372
 *.youtube.com +Free Clash Verge proxy
-@note 94
+@note 317
+*.gstatic.com +Free Clash Verge proxy
+@note 235
+*.whatpulse.org +Free Clash Verge proxy
+@note 221
 *.githubusercontent.com +Free Clash Verge proxy
-@note 39
-*.apache.org +Free Clash Verge proxy
-@note 33
-*.cloudflare.com +Free Clash Verge proxy
-@note 29
-*.googleusercontent.com +Free Clash Verge proxy
-@note 29
-*.githubassets.com +Free Clash Verge proxy
-@note 25
-*.wikimedia.org +Free Clash Verge proxy
-@note 23
+@note 134
+*.dromara.org +Free Clash Verge proxy
+@note 108
 *.spring.io +Free Clash Verge proxy
-@note 15
-*.ytimg.com +Free Clash Verge proxy
-@note 13
-*.gitee.com +Free Clash Verge proxy
-@note 11
-*.github.io +Free Clash Verge proxy
-@note 10
-*.twimg.com +Free Clash Verge proxy
-@note 10
-*.cncf.io +Free Clash Verge proxy
-@note 5
+@note 71
+*.githubassets.com +Free Clash Verge proxy
+@note 68
+*.googleusercontent.com +Free Clash Verge proxy
+@note 63
 *.mqttx.app +Free Clash Verge proxy
-@note 5
-*.linux.do +Free Clash Verge proxy
-@note 4
-*.x.com +Free Clash Verge proxy
-@note 4
+@note 40
+*.cloudflare.com +Free Clash Verge proxy
+@note 23
+*.google.com.hk +Free Clash Verge proxy
+@note 20
+*.github.io +Free Clash Verge proxy
+@note 18
+*.wikimedia.org +Free Clash Verge proxy
+@note 10
+*.gravatar.com +Free Clash Verge proxy
+@note 9
+*.redditstatic.com +Free Clash Verge proxy
+@note 8
+*.bootstrapcdn.com +Free Clash Verge proxy
+@note 7
+*.ytimg.com +Free Clash Verge proxy
+@note 6
 *.wikipedia.org +Free Clash Verge proxy
 @note 4
-*.ldstatic.com +Free Clash Verge proxy
+*.reddit.com +Free Clash Verge proxy
 @note 4
-*.google.com.hk +Free Clash Verge proxy
+*.apache.org +Free Clash Verge proxy
+@note 3
+*.redditmedia.com +Free Clash Verge proxy
+@note 3
+*.cncf.io +Free Clash Verge proxy
+@note 2
+*.redd.it +Free Clash Verge proxy
+@note 2
+*.mybatis.org +Free Clash Verge proxy
+@note 2
+*.fontawesome.com +Free Clash Verge proxy
+@note 2
+*.baeldung.com +Free Clash Verge proxy
 @note 1
-*.vertx.io +Free Clash Verge proxy
-@note 1
-*.twitter.com +Free Clash Verge proxy
+*.google.co.jp +Free Clash Verge proxy
 
 * +direct
