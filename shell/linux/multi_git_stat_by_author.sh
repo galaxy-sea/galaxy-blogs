@@ -61,6 +61,8 @@ exec > "$RESULT_FILE"
 # -----------------------------
 # 遍历仓库进行统计
 # -----------------------------
+echo "## <font color=\"info\">日程小精灵: $(date '+%Y-%m-%d %H:%M:%S')</font>"
+
 for i in "${!REPO_NAMES[@]}"; do
   repo_name="${REPO_NAMES[$i]}"
   repo_path="${REPO_PATHS[$i]}"
